@@ -123,7 +123,7 @@ class Pantheon():
             headers = {
                 "X-Riot-Token": self.key
             }
-            print(url)
+            
             try:
                 response = await session.request('GET', url, headers=headers)
             #In case of timeout
