@@ -123,7 +123,7 @@ class Pantheon():
             headers = {
                 "X-Riot-Token": self.key
             }
-            
+            print(url)
             try:
                 response = await session.request('GET', url, headers=headers)
             #In case of timeout
@@ -133,7 +133,82 @@ class Pantheon():
             #await response.text() needed here in the client session, dunno why
             await response.text()
             return response
-        
+    
+    #Champion mastery
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getChampionMasteries(self, summonerId):
+        return await self.fetch((self.BASE_URL + "champion-mastery/v3/champion-masteries/by-summoner/{summonerId}").format(server=self.server, summonerId=summonerId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getChampionMasteriesByChampionId(self, summonerId, championId):
+        return await self.fetch((self.BASE_URL + "champion-mastery/v3/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}").format(server=self.server, summonerId=summonerId, championId=championId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getChampionMasteriesScore(self, summonerId):
+        return await self.fetch((self.BASE_URL + "champion-mastery/v3/scores/by-summoner/{summonerId}").format(server=self.server, summonerId=summonerId))
+    
+    
+    #Champions
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getChampions(self):
+        return await self.fetch((self.BASE_URL + "platform/v3/champions").format(server=self.server))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getChampionsById(self, championId):
+        return await self.fetch((self.BASE_URL + "platform/v3/champions/{championId}").format(server=self.server, championId=championId))
+    
+    
+    #League
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getLeagueById(self, leagueId):
+        return await self.fetch((self.BASE_URL + "league/v3/leagues/{leagueId}").format(server=self.server, leagueId=leagueId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getLeaguePosition(self, summonerId):
+        return await self.fetch((self.BASE_URL + "league/v3/positions/by-summoner/{summonerId}").format(server=self.server, summonerId=summonerId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getChallengerLeague(self, queue="RANKED_SOLO_5x5"):
+        return await self.fetch((self.BASE_URL + "league/v3/challengerleagues/by-queue/{queue}").format(server=self.server, queue=queue))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getMasterLeague(self, queue="RANKED_SOLO_5x5"):
+        return await self.fetch((self.BASE_URL + "league/v3/masterleagues/by-queue/{queue}").format(server=self.server, queue=queue))
+    
+    
+    #Status
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getStatus(self):
+        return await self.fetch((self.BASE_URL + "status/v3/shard-data").format(server=self.server))
+    
+    
+    #Match
     @errorHandler
     @exceptions
     @ratelimit
@@ -155,18 +230,41 @@ class Pantheon():
         return await self.fetch((self.BASE_URL + "match/v3/matchlists/by-account/{accountId}{params}").format(server=self.server, accountId=accountId, params = utils.urlParams(params)))
     
     
+    #Spectator
     @errorHandler
     @exceptions
     @ratelimit
-    async def getLeagueById(self, leagueId):
-        return await self.fetch((self.BASE_URL + "league/v3/leagues/{leagueId}").format(server=self.server, leagueId=leagueId))
+    async def getCurrentGame(self, summonerId):
+        return await self.fetch((self.BASE_URL + "spectator/v3/active-games/by-summoner/{summonerId}").format(server=self.server, summonerId=summonerId))
+    
+    
+    #Summoner
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getSummoner(self, summonerId):
+        return await self.fetch((self.BASE_URL + "summoner/v3/summoners/{summonerId}").format(server=self.server, summonerId=summonerId))
     
     
     @errorHandler
     @exceptions
     @ratelimit
-    async def getLeaguePosition(self, summonerId):
-        return await self.fetch((self.BASE_URL + "league/v3/positions/by-summoner/{summonerId}").format(server=self.server, summonerId=summonerId))
+    async def getSummonerByAccountId(self, accountId):
+        return await self.fetch((self.BASE_URL + "summoner/v3/summoners/by-account/{accountId}").format(server=self.server, accountId=accountId))
     
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getSummonerByName(self, summonerName):
+        return await self.fetch((self.BASE_URL + "summoner/v3/summoners/by-name/{summonerName}").format(server=self.server, summonerName=summonerName))
+    
+    
+    #Thirs Party Code
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getThirdPartyCode(self, summonerId):
+        return await self.fetch((self.BASE_URL + "platform/v3/third-party-code/by-summoner/{summonerId}").format(server=self.server, summonerId=summonerId))
     
     

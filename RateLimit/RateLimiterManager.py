@@ -6,11 +6,18 @@ class RateLimiterManager:
     defaultApplicationLimits = [(500,10),(30000,600)]
     
     defaultMethodsLimits = {
+        "getChampions":[(400,60)],
+        "getChampionsById":[(400,60)],
+        "getLeagueById":[(500,10)],
+        "getLeaguePosition":[(35,60)],
+        "getChallengerLeague":[(500,10)],
+        "getMasterLeague":[(500,10)],
         "getMatch":[(500,10)],
         "getTimeline":[(500,10)],
         "getMatchlist":[(1000,10)],
-        "getLeaguePosition":[(35,60)],
-        "getLeagueById":[(500,10)],
+        "getSummoner":[(600,60)],
+        "getSummonerByName":[(600,60)],
+        "getSummonerByAccount":[(1000,60)],
     }
     
     def __init__(self):
@@ -51,11 +58,15 @@ class RateLimiterManager:
     
     
     def updateMethodsLimit(self, method:str, duration:int, limit:int):
-        for methodLimit in self.methods[method]:
-            if duration == methodLimit.getDuration():
-                methodLimit.updateLimit(limit)
-                return
-        self.methods[method].append(RateLimiter((limit,duration),method))
+        if method in self.methods:
+            for methodLimit in self.methods[method]:
+                if duration == methodLimit.getDuration():
+                    methodLimit.updateLimit(limit)
+                    return
+            self.methods[method].append(RateLimiter((limit,duration),method))
+        else:
+            self.methods[method] = []
+            self.methods[method].append(RateLimiter((limit,duration),method))
         
     def deleteMethodsLimit(self, method:str, duration:int):
         for methodLimit in self.methods[method]:
@@ -100,11 +111,11 @@ class RateLimiterManager:
             
             #Delete the out of date limits
             for i in methodsLimitsToDelete:
-                self.deleteMethodsLimit(i)
+                self.deleteMethodsLimit(method, i)
                 
             for duration in limits[1]:
                 #If the limit exists in the returned header but not in the manager, create it
-                self.updateMethodLimit(method, duration,limits[1][duration])
+                self.updateMethodsLimit(method, duration,limits[1][duration])
     
     def displayMethodsLimit(self):
         for method in self.methods:
@@ -124,12 +135,12 @@ class RateLimiterManager:
         methodToken=[]
         for appLimit in self.application:
             appToken.append(await appLimit.getToken())
-            
-        try:
-            for methodLimit in self.methods[method]:
-                methodToken.append(await methodLimit.getToken())
-            return (appToken,methodToken)
-        except Exception as e:
-            raise Exception("Method not found : " + method)
+        
+        if not method in self.methods:
+            self.updateMethodsLimit(method, 10, 20000)
+        
+        for methodLimit in self.methods[method]:
+            methodToken.append(await methodLimit.getToken())
+        return (appToken,methodToken)
             
         
