@@ -3,7 +3,7 @@ from .RateLimiter import RateLimiter
 class RateLimiterManager:
     
     #Default application rate limit
-    defaultApplicationLimits = [(500,10),(30000,600)]
+    defaultApplicationLimits = [(20,1),(100,120)]
     
     defaultMethodsLimits = {
         "getChampions":[(400,60)],

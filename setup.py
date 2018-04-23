@@ -9,4 +9,8 @@ setup(
   url = 'https://github.com/Canisback/pantheon',
   keywords = ['Riot API', 'python'],
   classifiers = [],
+  install_requires=[
+    "asyncio",
+    "aiohttp"
+  ],
 )

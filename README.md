@@ -27,3 +27,10 @@ Currently supported requests :
  * third party code by summonerId -> getThirdPartyCode(summonerId)
 
 Further requests supported and documentation (hopefully) incoming
+
+To install, download it and run 
+
+'''
+python setup.py install
+'''
+

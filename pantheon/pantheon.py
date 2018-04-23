@@ -23,9 +23,6 @@ class Pantheon():
         self._server = server
         self._rl = RateLimiterManager()
         
-        #self._rl.updateApplicationLimit(10,3000)
-        #self._rl.updateApplicationLimit(600,180000)
-        
         self.errorHandling = errorHandling
 
     def ratelimit(func):
