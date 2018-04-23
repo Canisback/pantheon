@@ -1,3 +1,8 @@
 *.pyc
-__init__.py
 test.py
+build/*
+docs/*
+dist/*
+*.yaml
+*.cfg
+.pypirc
