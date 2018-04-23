@@ -6,6 +6,10 @@ Supports all endpoints except static data and the tournaments ones (and matchs b
 
 It has an efficient rate limiting system as well as an error handler that automatically resend request on when needed.
 
+**There is no cache implemented for now**
+
+**The rate limit count is only kept while the script is alive**
+
 Currently supported requests : 
  * champion masteries by summonerId -> getChampionMasteries(summonerId)
  * champion masteries by summonerId and championId -> getChampionMasteriesByChampionId(summonerId,championId)
@@ -36,7 +40,7 @@ python setup.py install
 
 An example of usage to get details on the last 10 games : 
 
-```
+```python
 from pantheon import pantheon
 import asyncio
 
