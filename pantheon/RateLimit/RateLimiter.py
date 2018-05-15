@@ -2,7 +2,7 @@ import asyncio, time, datetime
 
 class RateLimiter:
     
-    def __init__(self, limits : (int,int) = (10,10), name: str =""):
+    def __init__(self, debug, limits : (int,int) = (10,10), name: str =""):
         
         #Init Async lock for the limiter
         self.lock = asyncio.Lock()
@@ -29,6 +29,9 @@ class RateLimiter:
         #Synchronicity state with server time window
         self.synced = False
         
+        #Debug mode
+        self.debug = debug
+        
         
     #Allows to update the limit number of requests
     def updateLimit(self,limit: int):
@@ -43,7 +46,6 @@ class RateLimiter:
         return self.limit
     
     async def _reset(self):
-        
         #Be sure to be out of the time window
         while self.time + self.duration >= int(time.mktime(datetime.datetime.utcnow().timetuple())):
             await asyncio.sleep(1)
@@ -112,7 +114,9 @@ class RateLimiter:
                     
                 #If count limit reached, await for the end of time window
                 else:
-                    
+                    if self.debug:
+                        print(self.name+" limit reached, sleeping for "+str( int((self.time + self.duration) - time.mktime(datetime.datetime.utcnow().timetuple())) + 1)+" seconds")
+                        print("Limit : "+str(self.limit)+" per "+str(self.duration)+" / Count : "+ str(self.count))
                     #Await for the next time window
                     await asyncio.sleep( int((self.time + self.duration) - time.mktime(datetime.datetime.utcnow().timetuple())) + 1)
 

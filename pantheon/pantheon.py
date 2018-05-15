@@ -10,7 +10,7 @@ class Pantheon():
     
     BASE_URL = "https://{server}.api.riotgames.com/lol/"
     
-    def __init__(self, server, api_key, errorHandling = False):
+    def __init__(self, server, api_key, errorHandling = False, requestsLoggingFunction = None, debug=False):
         """
         Initialize an instance of Pantheon class
         
@@ -21,9 +21,11 @@ class Pantheon():
         """
         self._key = api_key
         self._server = server
-        self._rl = RateLimiterManager()
+        self._rl = RateLimiterManager(debug)
         
         self.errorHandling = errorHandling
+        self.requestsLoggingFunction = requestsLoggingFunction
+        self.debug = debug
 
     def ratelimit(func):
         """
@@ -56,26 +58,35 @@ class Pantheon():
                     return await func(*args, **params)
                 #Errors that should be retried
                 except exc.RateLimit as e:
-                    print(e)
-                    print("Retrying")
-                    i = 1
+                    if args[0].debug:
+                        print(e)
+                        print("Retrying")
+                    i = e.waitFor()
                     while i < 6:
                         await asyncio.sleep(i)
                         try:
                             return await func(*args, **params)
-                        except (exc.RateLimit, exc.ServerError) as e:
-                            print(e)
+                        except Exception as e:
+                            if args[0].debug:
+                                print(e)
                         i += 2
                     raise e
                 except (exc.ServerError, exc.Timeout) as e:
+                    if args[0].debug:
+                        print(e)
+                        print("Retrying")
                     i = 1
                     while i < 6:
                         await asyncio.sleep(i)
                         try:
                             return await func(*args, **params)
                         except (exc.Timeout, exc.ServerError) as e:
+                    
                             pass
                         i += 2
+                        if args[0].debug:
+                            print(e)
+                            print("Retrying")
                     raise e
                 except (exc.NotFound, exc.BadRequest) as e:
                     raise e
@@ -138,6 +149,10 @@ class Pantheon():
             #In case of timeout
             except Exception as e:
                 return None
+            
+            #If a logging function is passed, send it url, status code and headers
+            if self.requestsLoggingFunction:
+                self.requestsLoggingFunction(url, response.status, response.headers)
             
             #await response.text() needed here in the client session, dunno why
             await response.text()

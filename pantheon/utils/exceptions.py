@@ -10,8 +10,16 @@ class ServerError(Exception):
 
 class RateLimit(Exception):
     def __init__(self, headers):
-        print(headers)
-        Exception.__init__(self,"Rate limit exceeded")
+        messageToAdd = ""
+        if "Retry-After" in headers:
+            self.timeToWait = headers["Retry-After"]
+            messageToAdd = ", Retry-After = "+str(self.timeToWait)
+        else:
+            self.timeToWait = 1
+        Exception.__init__(self,"Rate limit exceeded" + messageToAdd)
+        
+    def waitFor(self):
+        return int(self.timeToWait)
 
 
 class Forbidden(Exception):

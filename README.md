@@ -47,7 +47,12 @@ import asyncio
 server = "euw1"
 api_key = "RGAPI-XXXX"
 
-panth = pantheon.Pantheon(server, api_key, True)
+def requestsLog(url, status, headers):
+    print(url)
+    print(status)
+    print(headers)
+
+panth = pantheon.Pantheon(server, api_key, errorHandling=True, requestsLoggingFunction=requestsLog, debug=True)
 
 async def getSummonerId(name):
     try:
@@ -82,3 +87,11 @@ print(summonerId)
 print(accountId)
 print(loop.run_until_complete(getRecentMatches(accountId)))
 ```
+
+
+#Changelog : 
+
+ * 1.0.1 : 
+     * Added a debug flag, while set at True, some messages will be printed, when the rate limiter make a request waiting because limit is reached, or when retrying after an error.
+     * Added callback function for logging purpose.
+     * Changed error 429 handling (rate limit) so it rey after the value sent in header
