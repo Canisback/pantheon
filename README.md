@@ -89,9 +89,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 ```
 
 
-**Changelog : **
+**Changelog :**
 
  * 1.0.1 : 
      * Added a debug flag, while set at True, some messages will be printed, when the rate limiter make a request waiting because limit is reached, or when retrying after an error.
      * Added callback function for logging purpose.
-     * Changed error 429 handling (rate limit) so it rey after the value sent in header
+     * Changed error 429 handling (rate limit) so it retries after the value sent in header
