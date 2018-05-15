@@ -24,5 +24,9 @@ def urlParams(params):
     else:
         strParams = "?"
         for i in params:
+            if type(params[i]) == list:
+                for p in params[i]:
+                    strParams+= i+"="+str(p)+"&"
+            else:
             strParams+= i+"="+str(params[i])+"&"
         return strParams[:-1]

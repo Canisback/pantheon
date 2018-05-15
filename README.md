@@ -95,3 +95,4 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
      * Added a debug flag, while set at True, some messages will be printed, when the rate limiter make a request waiting because limit is reached, or when retrying after an error.
      * Added callback function for logging purpose.
      * Changed error 429 handling (rate limit) so it retries after the value sent in header
+     * Added support for list in matchlist params (you can pass {"queue":[420,440]}
