@@ -28,5 +28,5 @@ def urlParams(params):
                 for p in params[i]:
                     strParams+= i+"="+str(p)+"&"
             else:
-            strParams+= i+"="+str(params[i])+"&"
+                strParams+= i+"="+str(params[i])+"&"
         return strParams[:-1]
