@@ -26,14 +26,14 @@ class RateLimiterManager:
         
         self.application = []
         for appLimit in self.defaultApplicationLimits:
-            self.application.append(RateLimiter(debug,appLimit, "App"))
+            self.application.append(RateLimiter(self.debug,appLimit, "App"))
             
         self.methods = {}
         
         for method in self.defaultMethodsLimits:
             self.methods[method] = []
             for methodLimit in self.defaultMethodsLimits[method]:
-                self.methods[method].append(RateLimiter(debug,methodLimit, method))
+                self.methods[method].append(RateLimiter(self.debug,methodLimit, method))
         
     
     def updateApplicationLimit(self, duration:int, limit:int):
@@ -41,7 +41,7 @@ class RateLimiterManager:
             if duration == appLimit.getDuration():
                 appLimit.updateLimit(limit)
                 return
-        self.application.append(RateLimiter(debug,(limit,duration),"App"))
+        self.application.append(RateLimiter(self.debug,(limit,duration),"App"))
         
     def deleteApplicationLimit(self, duration:int):
         for appLimit in self.application:
@@ -65,10 +65,10 @@ class RateLimiterManager:
                 if duration == methodLimit.getDuration():
                     methodLimit.updateLimit(limit)
                     return
-            self.methods[method].append(RateLimiter(debug,(limit,duration),method))
+            self.methods[method].append(RateLimiter(self.debug,(limit,duration),method))
         else:
             self.methods[method] = []
-            self.methods[method].append(RateLimiter(debug,(limit,duration),method))
+            self.methods[method].append(RateLimiter(self.debug,(limit,duration),method))
         
     def deleteMethodsLimit(self, method:str, duration:int):
         for methodLimit in self.methods[method]:
