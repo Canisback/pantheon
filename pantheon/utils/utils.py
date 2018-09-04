@@ -17,6 +17,12 @@ def getLimits(headers):
 def dateToTimestamp(date):
     return int(time.mktime(datetime.datetime.strptime(date, '%a, %d %b %Y %H:%M:%S GMT').timetuple()))
 
+def getTimestamp(headers):
+    try:
+        timestamp = dateToTimestamp(headers['Date'])
+    except:
+        timestamp = int(time.time())
+    return timestamp
 
 def urlParams(params):
     if params == None:

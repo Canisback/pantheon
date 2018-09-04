@@ -38,7 +38,7 @@ class Pantheon():
             response = await func(*args, **params)
             
             limits = utils.getLimits(response.headers)
-            timestamp = utils.dateToTimestamp(response.headers['Date'])
+            timestamp = utils.getTimestamp(response.headers)
             
             await args[0]._rl.getBack(func.__name__, token, timestamp, limits)
             
@@ -80,13 +80,14 @@ class Pantheon():
                         await asyncio.sleep(i)
                         try:
                             return await func(*args, **params)
-                        except (exc.Timeout, exc.ServerError) as e:
+                        except (exc.Timeout, exc.ServerError) as e2:
                     
                             pass
                         i += 2
                         if args[0].debug:
-                            print(e)
+                            print(e2)
                             print("Retrying")
+                    print("there is no bug")
                     raise e
                 except (exc.NotFound, exc.BadRequest) as e:
                     raise e
@@ -200,23 +201,11 @@ class Pantheon():
     @errorHandler
     @exceptions
     @ratelimit
-    async def getChampions(self):
+    async def getChampionRotations(self):
         """
-        Returns the result of https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions
+        Returns the result of https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo
         """
-        return await self.fetch((self.BASE_URL + "platform/v3/champions").format(server=self.server))
-    
-    
-    @errorHandler
-    @exceptions
-    @ratelimit
-    async def getChampionsById(self, championId):
-        """
-        :param int championId: id of the champion
-        
-        Returns the result of https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionsById
-        """
-        return await self.fetch((self.BASE_URL + "platform/v3/champions/{championId}").format(server=self._server, championId=championId))
+        return await self.fetch((self.BASE_URL + "platform/v3/champion-rotations").format(server=self._server))
     
     
     #League

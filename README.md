@@ -14,8 +14,7 @@ Currently supported requests :
  * champion masteries by summonerId -> getChampionMasteries(summonerId)
  * champion masteries by summonerId and championId -> getChampionMasteriesByChampionId(summonerId,championId)
  * champion masteries score by summonerId -> getChampionMasteriesScore(summonerId)
- * champions -> getChampions()
- * champions by championId -> getChampionsById(championId)
+ * champion rotations -> getChampionRotations()
  * league by leagueId -> getLeagueById(leagueId)
  * league position by summonerId -> getLeaguePosition(summonerId)
  * challenger league by queue (optional) -> getChallengerLeague(queue)
@@ -90,6 +89,11 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 
 **Changelog :**
+
+ * 1.0.2 : 
+     * Added new getChampionRotations endpoint support
+     * Deleted getChampions and getChampionsById due to deprecation of corresponding endpoints
+     * Fixed the getTimestamp function for the case when the Date header is missing
 
  * 1.0.1 : 
      * Added a debug flag, while set at True, some messages will be printed, when the rate limiter make a request waiting because limit is reached, or when retrying after an error.
