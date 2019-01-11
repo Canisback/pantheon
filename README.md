@@ -90,6 +90,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.0.3 : 
+     * Updated for v4 endpoints
+
  * 1.0.2 : 
      * Added new getChampionRotations endpoint support
      * Deleted getChampions and getChampionsById due to deprecation of corresponding endpoints

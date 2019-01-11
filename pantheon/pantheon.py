@@ -167,9 +167,9 @@ class Pantheon():
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries
+        Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries
         """
-        return await self.fetch((self.BASE_URL + "champion-mastery/v3/champion-masteries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "champion-mastery/v4/champion-masteries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -180,9 +180,9 @@ class Pantheon():
             :param int summonerId: summonerId of the player
             :param int championId: id of the champion
 
-            Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery
+            Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery
         """
-        return await self.fetch((self.BASE_URL + "champion-mastery/v3/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}").format(server=self._server, summonerId=summonerId, championId=championId))
+        return await self.fetch((self.BASE_URL + "champion-mastery/v4/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}").format(server=self._server, summonerId=summonerId, championId=championId))
     
     
     @errorHandler
@@ -192,9 +192,9 @@ class Pantheon():
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore
+        Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore
         """
-        return await self.fetch((self.BASE_URL + "champion-mastery/v3/scores/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "champion-mastery/v4/scores/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     #Champions
@@ -216,9 +216,9 @@ class Pantheon():
         """
         :param string leagueId: id of the league
         
-        Returns the result of https://developer.riotgames.com/api-methods/#league-v3/GET_getLeagueById
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById
         """
-        return await self.fetch((self.BASE_URL + "league/v3/leagues/{leagueId}").format(server=self._server, leagueId=leagueId))
+        return await self.fetch((self.BASE_URL + "league/v4/leagues/{leagueId}").format(server=self._server, leagueId=leagueId))
     
     
     @errorHandler
@@ -228,9 +228,9 @@ class Pantheon():
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getAllLeaguePositionsForSummoner
         """
-        return await self.fetch((self.BASE_URL + "league/v3/positions/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "league/v4/positions/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -244,9 +244,9 @@ class Pantheon():
              * RANKED_FLEX_SR
              * RANKED_FLEX_TT
         
-        Returns the result of https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague
         """
-        return await self.fetch((self.BASE_URL + "league/v3/challengerleagues/by-queue/{queue}").format(server=self._server, queue=queue))
+        return await self.fetch((self.BASE_URL + "league/v4/challengerleagues/by-queue/{queue}").format(server=self._server, queue=queue))
     
     
     @errorHandler
@@ -260,9 +260,9 @@ class Pantheon():
              * RANKED_FLEX_SR
              * RANKED_FLEX_TT
         
-        Returns the result of https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague
         """
-        return await self.fetch((self.BASE_URL + "league/v3/masterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
+        return await self.fetch((self.BASE_URL + "league/v4/masterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
     
     
     #Status
@@ -284,9 +284,9 @@ class Pantheon():
         """
         :param int matchId: matchId of the match, also known as gameId
         
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch
+        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
         """
-        return await self.fetch((self.BASE_URL + "match/v3/matches/{matchId}").format(server=self._server, matchId=matchId))
+        return await self.fetch((self.BASE_URL + "match/v4/matches/{matchId}").format(server=self._server, matchId=matchId))
         
     
     @errorHandler
@@ -296,9 +296,9 @@ class Pantheon():
         """
         :param int matchId: matchId of the match, also known as gameId
         
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline
+        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline
         """
-        return await self.fetch((self.BASE_URL + "match/v3/timelines/by-match/{matchId}").format(server=self._server, matchId=matchId))
+        return await self.fetch((self.BASE_URL + "match/v4/timelines/by-match/{matchId}").format(server=self._server, matchId=matchId))
     
     
     @errorHandler
@@ -309,9 +309,9 @@ class Pantheon():
         :param int accountId: accountId of the player
         :param object params: all key:value params to add to the request
         
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist
+        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist
         """
-        return await self.fetch((self.BASE_URL + "match/v3/matchlists/by-account/{accountId}{params}").format(server=self._server, accountId=accountId, params = utils.urlParams(params)))
+        return await self.fetch((self.BASE_URL + "match/v4/matchlists/by-account/{accountId}{params}").format(server=self._server, accountId=accountId, params = utils.urlParams(params)))
     
     
     #Spectator
@@ -322,9 +322,9 @@ class Pantheon():
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner
+        Returns the result of https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner
         """
-        return await self.fetch((self.BASE_URL + "spectator/v3/active-games/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "spectator/v4/active-games/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -345,9 +345,9 @@ class Pantheon():
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId
+        Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId
         """
-        return await self.fetch((self.BASE_URL + "summoner/v3/summoners/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -357,9 +357,9 @@ class Pantheon():
         """
         :param int accountId: accountId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId
+        Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId
         """
-        return await self.fetch((self.BASE_URL + "summoner/v3/summoners/by-account/{accountId}").format(server=self._server, accountId=accountId))
+        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-account/{accountId}").format(server=self._server, accountId=accountId))
     
     
     @errorHandler
@@ -369,9 +369,9 @@ class Pantheon():
         """
         :param string summonerName: name of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName
+        Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName
         """
-        return await self.fetch((self.BASE_URL + "summoner/v3/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
+        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
     
     
     #Thirs Party Code
@@ -382,8 +382,8 @@ class Pantheon():
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#third-party-code-v3/GET_getThirdPartyCodeBySummonerId
+        Returns the result of https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId
         """
-        return await self.fetch((self.BASE_URL + "platform/v3/third-party-code/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "platform/v4/third-party-code/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
