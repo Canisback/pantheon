@@ -31,10 +31,20 @@ Currently supported requests :
 
 Further requests supported and documentation (hopefully) incoming
 
-To install, download it and run 
+To install, run
+```
+pip install git+git://github.com/Canisback/pantheon@master
+or
+pip3 install git+git://github.com/Canisback/pantheon@master
+
+```
+
+or you can download it and run 
 
 ```
 python setup.py install
+or
+python3 setup.py install
 ```
 
 An example of usage to get details on the last 10 games : 
