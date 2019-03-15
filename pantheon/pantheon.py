@@ -66,9 +66,9 @@ class Pantheon():
                         await asyncio.sleep(i)
                         try:
                             return await func(*args, **params)
-                        except Exception as e:
+                        except Exception as e2:
                             if args[0].debug:
-                                print(e)
+                                print(e2)
                         i += 2
                     raise e
                 except (exc.ServerError, exc.Timeout) as e:
@@ -130,6 +130,9 @@ class Pantheon():
                 
             elif response.status == 400:
                 raise exc.BadRequest
+                
+            elif response.status == 408:
+                raise exc.Timeout
                 
             else:
                 raise Exception("Unidentified error code : "+str(response.status))
