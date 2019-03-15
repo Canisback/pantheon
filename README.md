@@ -36,7 +36,6 @@ To install, run
 pip install git+git://github.com/Canisback/pantheon@master
 or
 pip3 install git+git://github.com/Canisback/pantheon@master
-
 ```
 
 or you can download it and run 
@@ -100,6 +99,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.0.3 : 
+     * Added 408 error code
+     
  * 1.0.3 : 
      * Updated for v4 endpoints
 
