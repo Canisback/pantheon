@@ -33,9 +33,9 @@ Further requests supported and documentation (hopefully) incoming
 
 To install, run
 ```
-pip install git+git://github.com/Canisback/pantheon@master
+pip install pantheon
 or
-pip3 install git+git://github.com/Canisback/pantheon@master
+pip3 install pantheon
 ```
 
 or you can download it and run 
