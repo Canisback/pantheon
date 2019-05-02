@@ -16,6 +16,7 @@ Currently supported requests :
  * champion masteries score by summonerId -> getChampionMasteriesScore(summonerId)
  * champion rotations -> getChampionRotations()
  * league by leagueId -> getLeagueById(leagueId)
+ * league pages by queue, rank and tier -> getLeaguePage(queue, tier, division, page=1)
  * league position by summonerId -> getLeaguePosition(summonerId)
  * challenger league by queue (optional) -> getChallengerLeague(queue)
  * lol status -> getStatus()
@@ -28,6 +29,10 @@ Currently supported requests :
  * summoner by accountId -> getSummonerByAccountId(accountId)
  * summoner by name -> getSummonerByName(name)
  * third party code by summonerId -> getThirdPartyCode(summonerId)
+ * register provider -> registerProvider(region, callback_url, stub=False)
+ * register tournament -> registerTournament(providerId, name, stub=False)
+ * create tournament code -> createTournamentCode(tournamentId, data, nb_codes=1, stub=False)
+ * get lobby events by tournament code -> getLobbyEvents(tournamentCode, stub=False)
 
 Further requests supported and documentation (hopefully) incoming
 
@@ -99,6 +104,10 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.0.5 : 
+     * Updated League endpoints to match with current version
+     * Added tournament endpoints (stub ones)
+     
  * 1.0.4 : 
      * Added 408 error code
      

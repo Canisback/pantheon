@@ -139,17 +139,18 @@ class Pantheon():
             
         return _exceptions
         
-    async def fetch(self, url):
+    async def fetch(self, url, method="GET", data=None):
         """
         Returns the result of the request of the url given in parameter after attaching the api_key to the header
         """
+        
         async with aiohttp.ClientSession() as session:
             headers = {
                 "X-Riot-Token": self._key
             }
             
             try:
-                response = await session.request('GET', url, headers=headers)
+                response = await session.request(method, url, headers=headers, data=json.dumps(data))
             #In case of timeout
             except Exception as e:
                 return None
@@ -227,13 +228,25 @@ class Pantheon():
     @errorHandler
     @exceptions
     @ratelimit
+    async def getLeaguePages(self, queue="RANKED_SOLO_5x5", tier="DIAMOND", division="I", page=1):
+        """
+        :param int summonerId: summonerId of the player
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
+        """
+        return await self.fetch((self.BASE_URL + "league/v4/entries/{queue}/{tier}/{division}?{page}").format(server=self._server, queue=queue, tier=tier, division=division, page=page))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
     async def getLeaguePosition(self, summonerId):
         """
         :param int summonerId: summonerId of the player
         
-        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getAllLeaguePositionsForSummoner
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
-        return await self.fetch((self.BASE_URL + "league/v4/positions/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "league/v4/entries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -377,7 +390,7 @@ class Pantheon():
         return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
     
     
-    #Thirs Party Code
+    #Third Party Code
     @errorHandler
     @exceptions
     @ratelimit
@@ -390,3 +403,61 @@ class Pantheon():
         return await self.fetch((self.BASE_URL + "platform/v4/third-party-code/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
+    #Tournaments
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def registerProvider(self, region, callback_url, stub=False):
+        """
+        :param str region: region to get a provider for
+        :param str callback_url: url to which a callback will be sent after each match created with a tournament code from this provider
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerProviderData
+        """
+        return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/providers".format(stub="-stub" if stub else ""), method="POST", data={"region":region, "url":callback_url})
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def registerTournament(self, providerId, name, stub=False):
+        """
+        :param int providerId: providerId to create a tournament
+        :param str name: name of the tournament
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerTournament
+        """
+        return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/tournaments".format(stub="-stub" if stub else ""), method="POST", data={"providerId":providerId, "name":name})
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def createTournamentCode(self, tournamentId, data, nb_codes=1, stub=False):
+        """
+        :param in tournamentId:tournamentId for which the code will be created
+        :param int nb_codes: number of codes to generate
+        :param dict data: datafor the code generation, including : 
+            ist[str] allowedSummonerIds: list of all summonerId (optional)
+            str mapType: map for the game
+            str pickType: pick type for the game
+            str spectatorType: spectator type for the game
+            int teamSize: max number of player in a team
+            str metadata: additional data to get back with the callback (optional)
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode
+        """
+        return await self.fetch(("https://americas.api.riotgames.com/lol/tournament{stub}/v4/codes?count={nb_codes}&tournamentId={tournamentId}").format(stub="-stub" if stub else "", tournamentId=tournamentId, nb_codes=nb_codes), method="POST", data=data)
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getLobbyEvents(self, tournamentCode, stub=False):
+        """
+        :param int providerId: providerId to create a tournament
+        :param str name: name of the tournament
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode
+        """
+        return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/lobby-events/by-code/{code}".format(stub="-stub" if stub else "", code=tournamentCode))
