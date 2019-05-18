@@ -169,7 +169,7 @@ class Pantheon():
     @ratelimit
     async def getChampionMasteries(self, summonerId):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries
         """
@@ -181,7 +181,7 @@ class Pantheon():
     @ratelimit
     async def getChampionMasteriesByChampionId(self, summonerId, championId):
         """
-            :param int summonerId: summonerId of the player
+            :param string summonerId: summonerId of the player
             :param int championId: id of the champion
 
             Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery
@@ -194,7 +194,7 @@ class Pantheon():
     @ratelimit
     async def getChampionMasteriesScore(self, summonerId):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore
         """
@@ -230,7 +230,7 @@ class Pantheon():
     @ratelimit
     async def getLeaguePages(self, queue="RANKED_SOLO_5x5", tier="DIAMOND", division="I", page=1):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
@@ -242,7 +242,7 @@ class Pantheon():
     @ratelimit
     async def getLeaguePosition(self, summonerId):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
@@ -322,7 +322,7 @@ class Pantheon():
     @ratelimit
     async def getMatchlist(self, accountId, params=None):
         """
-        :param int accountId: accountId of the player
+        :param string accountId: accountId of the player
         :param object params: all key:value params to add to the request
         
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist
@@ -336,7 +336,7 @@ class Pantheon():
     @ratelimit
     async def getCurrentGame(self, summonerId):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner
         """
@@ -359,7 +359,7 @@ class Pantheon():
     @ratelimit
     async def getSummoner(self, summonerId):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId
         """
@@ -371,7 +371,7 @@ class Pantheon():
     @ratelimit
     async def getSummonerByAccountId(self, accountId):
         """
-        :param int accountId: accountId of the player
+        :param string accountId: accountId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId
         """
@@ -396,7 +396,7 @@ class Pantheon():
     @ratelimit
     async def getThirdPartyCode(self, summonerId):
         """
-        :param int summonerId: summonerId of the player
+        :param string summonerId: summonerId of the player
         
         Returns the result of https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId
         """
@@ -435,7 +435,7 @@ class Pantheon():
     @ratelimit
     async def createTournamentCode(self, tournamentId, data, nb_codes=1, stub=False):
         """
-        :param in tournamentId:tournamentId for which the code will be created
+        :param int tournamentId:tournamentId for which the code will be created
         :param int nb_codes: number of codes to generate
         :param dict data: datafor the code generation, including : 
             ist[str] allowedSummonerIds: list of all summonerId (optional)
