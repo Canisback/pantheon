@@ -150,7 +150,10 @@ class Pantheon():
             }
             
             try:
-                response = await session.request(method, url, headers=headers, data=json.dumps(data))
+                if method=="GET":
+                    response = await session.request("GET", url, headers=headers)
+                else:
+                    response = await session.request(method, url, headers=headers, data=json.dumps(data))
             #In case of timeout
             except Exception as e:
                 return None
