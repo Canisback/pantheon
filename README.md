@@ -104,7 +104,7 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
- * 1.0.6 : 
+ * 1.0.7 : 
      * Added TFT API endpoints
      * Added unit tests covering almost all endpoints, rate limiter not unit tested yet
 
