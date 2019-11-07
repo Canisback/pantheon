@@ -104,6 +104,13 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.0.6 : 
+     * Added TFT API endpoints
+     * Added unit tests covering almost all endpoints, rate limiter not unit tested yet
+
+ * 1.0.6 : 
+     * Fixed 415 errors
+
  * 1.0.5 : 
      * Updated League endpoints to match with current version
      * Added tournament endpoints (stub ones)
