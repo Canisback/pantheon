@@ -9,6 +9,24 @@ from .RateLimit.RateLimiterManager import RateLimiterManager
 class Pantheon():
     
     BASE_URL = "https://{server}.api.riotgames.com/lol/"
+    BASE_URL_TFT = "https://{server}.api.riotgames.com/tft/"
+    
+    tft_server = {
+        "br1":"americas",
+        "eun1":"europe",
+        "euw1":"europe",
+        "jp1":"asia",
+        "kr":"asia",
+        "la1":"americas",
+        "la2":"americas",
+        "na1":"americas",
+        "oc1":"americas",
+        "tr1":"europe",
+        "ru":"europe",
+        "americas":"americas",
+        "europe":"europe",
+        "asia":"asia"
+    }
     
     def __init__(self, server, api_key, errorHandling = False, requestsLoggingFunction = None, debug=False):
         """
@@ -233,11 +251,14 @@ class Pantheon():
     @ratelimit
     async def getLeaguePages(self, queue="RANKED_SOLO_5x5", tier="DIAMOND", division="I", page=1):
         """
-        :param string summonerId: summonerId of the player
+        :param string queue: queue to get the page of
+        :param string tier: tier to get the page of
+        :param string division: division to get the page of
+        :param int page: page to get
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
-        return await self.fetch((self.BASE_URL + "league/v4/entries/{queue}/{tier}/{division}?{page}").format(server=self._server, queue=queue, tier=tier, division=division, page=page))
+        return await self.fetch((self.BASE_URL + "league/v4/entries/{queue}/{tier}/{division}?page={page}").format(server=self._server, queue=queue, tier=tier, division=division, page=page))
     
     
     @errorHandler
@@ -266,6 +287,22 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague
         """
         return await self.fetch((self.BASE_URL + "league/v4/challengerleagues/by-queue/{queue}").format(server=self._server, queue=queue))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getGrandmasterLeague(self, queue="RANKED_SOLO_5x5"):
+        """
+        :param string queue: queue to get the master league of
+            Values accepted : 
+             * RANKED_SOLO_5x5 *(default)*
+             * RANKED_FLEX_SR
+             * RANKED_FLEX_TT
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague
+        """
+        return await self.fetch((self.BASE_URL + "league/v4/grandmasterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
     
     
     @errorHandler
@@ -353,7 +390,7 @@ class Pantheon():
         """
         Returns the result of https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames
         """
-        return await self.fetch((self.BASE_URL + "spectator/v3/featured-games").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL + "spectator/v4/featured-games").format(server=self._server))
     
     
     #Summoner
@@ -391,6 +428,18 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName
         """
         return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getSummonerByPuuId(self, puuId):
+        """
+        :param string puuId: puuId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID
+        """
+        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-puuid/{puuId}").format(server=self._server, puuId=puuId))
     
     
     #Third Party Code
@@ -441,7 +490,7 @@ class Pantheon():
         :param int tournamentId:tournamentId for which the code will be created
         :param int nb_codes: number of codes to generate
         :param dict data: datafor the code generation, including : 
-            ist[str] allowedSummonerIds: list of all summonerId (optional)
+            list[str] allowedSummonerIds: list of all summonerId (optional)
             str mapType: map for the game
             str pickType: pick type for the game
             str spectatorType: spectator type for the game
@@ -464,3 +513,145 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode
         """
         return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/lobby-events/by-code/{code}".format(stub="-stub" if stub else "", code=tournamentCode))
+
+    # TFT
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTLeagueById(self, leagueId):
+        """
+        :param string leagueId: id of the league
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-league-v1/GET_getLeagueById
+        """
+        return await self.fetch((self.BASE_URL_TFT + "league/v1/leagues/{leagueId}").format(server=self._server, leagueId=leagueId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTLeaguePages(self,  tier="DIAMOND", division="I", page=1):
+        """
+        :param string tier: tier to get the page of
+        :param string division: division to get the page of
+        :param int page: page to get
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-league-v1/GET_getLeagueEntries
+        """
+        return await self.fetch((self.BASE_URL_TFT + "league/v1/entries/{tier}/{division}?page={page}").format(server=self._server, tier=tier, division=division, page=page))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTLeaguePosition(self, summonerId):
+        """
+        :param string summonerId: summonerId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-league-v1/GET_getLeagueEntriesForSummoner
+        """
+        return await self.fetch((self.BASE_URL_TFT + "league/v1/entries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTChallengerLeague(self):
+        """
+        Returns the result of https://developer.riotgames.com/apis#tft-league-v1/GET_getChallengerLeague
+        """
+        return await self.fetch((self.BASE_URL_TFT + "league/v1/challenger").format(server=self._server))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTGrandmasterLeague(self):
+        """
+        Returns the result of https://developer.riotgames.com/apis#tft-league-v1/GET_getGrandmasterLeague
+        """
+        return await self.fetch((self.BASE_URL_TFT + "league/v1/grandmaster").format(server=self._server))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTMasterLeague(self):
+        """
+        Returns the result of https://developer.riotgames.com/apis#tft-league-v1/GET_getMasterLeague
+        """
+        return await self.fetch((self.BASE_URL_TFT + "league/v1/master").format(server=self._server))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTMatch(self, matchId):
+        """
+        :param int matchId: matchId of the match, also known as gameId
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
+        """
+        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/{matchId}").format(server= self.tft_server[self._server], matchId=matchId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTMatchlist(self, puuId):
+        """
+        :param string puuId: puuId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
+        """
+        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/by-puuid/{puuId}/ids").format(server= self.tft_server[self._server], puuId=puuId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTSummoner(self, summonerId):
+        """
+        :param string summonerId: summonerId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-summoner-v1/GET_getBySummonerId
+        """
+        return await self.fetch((self.BASE_URL_TFT + "summoner/v1/summoners/{summonerId}").format(server=self._server, summonerId=summonerId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTSummonerByAccountId(self, accountId):
+        """
+        :param string accountId: accountId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-summoner-v1/GET_getByAccountId
+        """
+        return await self.fetch((self.BASE_URL_TFT + "summoner/v1/summoners/by-account/{accountId}").format(server=self._server, accountId=accountId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTSummonerByPuuId(self, puuId):
+        """
+        :param string puuId: puuId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-summoner-v1/GET_getByPUUID
+        """
+        return await self.fetch((self.BASE_URL_TFT + "summoner/v1/summoners/by-puuid/{puuId}").format(server=self._server, puuId=puuId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getTFTSummonerByName(self, summonerName):
+        """
+        :param string summonerName: name of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#tft-summoner-v1/GET_getBySummonerName
+        """
+        return await self.fetch((self.BASE_URL_TFT + "summoner/v1/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
+    
+    
