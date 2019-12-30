@@ -1,5 +1,10 @@
 # Pantheon
 
+[![PyPi](https://img.shields.io/pypi/v/pantheon)](https://pypi.org/project/pantheon/)
+[![Build Status](https://travis-ci.com/Canisback/pantheon.svg?branch=master)](https://travis-ci.com/Canisback/pantheon)
+[![codecov](https://codecov.io/gh/Canisback/pantheon/branch/master/graph/badge.svg)](https://codecov.io/gh/Canisback/pantheon)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/Canisback/pantheon.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Canisback/pantheon/context:python)
+
 Simple library to use the Riot API with Python Asyncio.
 
 Supports all endpoints except static data and the tournaments ones (and matchs by tournament code).
