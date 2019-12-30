@@ -20,12 +20,12 @@ def dateToTimestamp(date):
 def getTimestamp(headers):
     try:
         timestamp = dateToTimestamp(headers['Date'])
-    except:
+    except BaseException as e:
         timestamp = int(time.time())
     return timestamp
 
 def urlParams(params):
-    if params == None:
+    if params is None:
         return ""
     else:
         strParams = "?"

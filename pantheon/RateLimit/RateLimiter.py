@@ -79,7 +79,7 @@ class RateLimiter:
                 
                 #Sync the beginning of time window with server and update the limit
                 if not self.synced:
-                    if not limit == None:
+                    if not limit is None:
                         self.updateLimit(limit)
                     self.synced = True
                     self.time = timestamp
@@ -87,7 +87,8 @@ class RateLimiter:
             #If the time window is out of date
             else:
                 await self._reset()
-                if not limit == None:
+                if not limit is
+                None:
                     self.updateLimit(limit)
                 self.previouslyPending -= 1
                 self.count += 1

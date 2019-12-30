@@ -77,7 +77,7 @@ class RateLimiterManager:
                 return
             
     async def getBack(self, method:str, token, timestamp:int, limits):
-        if limits == None:
+        if limits is None:
             for i,appLimit in enumerate(self.application):
                 await appLimit.getBack(token[0][i], timestamp)
             for i,methodLimit in enumerate(self.methods[method]):
