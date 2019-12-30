@@ -87,8 +87,7 @@ class RateLimiter:
             #If the time window is out of date
             else:
                 await self._reset()
-                if not limit is
-                None:
+                if not limit is None:
                     self.updateLimit(limit)
                 self.previouslyPending -= 1
                 self.count += 1
