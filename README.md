@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.com/Canisback/pantheon.svg?branch=master)](https://travis-ci.com/Canisback/pantheon)
 [![codecov](https://codecov.io/gh/Canisback/pantheon/branch/master/graph/badge.svg)](https://codecov.io/gh/Canisback/pantheon)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/Canisback/pantheon.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Canisback/pantheon/context:python)
+[![Downloads](https://pepy.tech/badge/pantheon)](https://pepy.tech/project/pantheon)
 
 Simple library to use the Riot API with Python Asyncio.
 
@@ -108,6 +109,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 
 **Changelog :**
+
+ * 1.0.8 : 
+     * Clean up some code and upgrading for CI
 
  * 1.0.7 : 
      * Added TFT API endpoints

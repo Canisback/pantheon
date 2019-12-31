@@ -1,15 +1,21 @@
 language: python
 python:
-  - "3.6"
-  - "3.7"
-#  - "3.8"
+- '3.6'
+- '3.7'
 before_install:
-  - export PYTHONPATH=$PYTHONPATH:$(pwd) 
+- export PYTHONPATH=$PYTHONPATH:$(pwd)
 install:
-  - pip install -r requirements.txt
-  - pip install codecov
-  - pip install tox-travis
+- pip install -r requirements.txt
+- pip install codecov
+- pip install tox-travis
 script:
-  - tox
+- tox
 after_success:
-  - codecov
+- codecov
+deploy:
+  provider: pypi
+  user: "__token__"
+  password:
+    secure: OeXWZOJuJMtgMKC6ly5WT/WpHn+Xvz5A6tCpOE3dfRXhL1Bmc4fqbfOGQC6JLPU+5l6VUzrApR3FLk+vmZT6XJ+WjXijilatrBYx3VJcB8PL20qrnpmTgPMIYoSvhb1UpAdJUwZT6RDIoMhddfW+yhi0Lr7gP/YV6y9NOurQYKs2oNvAwA2quwEtQ1eL69BNbkeysRL/HW4SQBlljmOu7IK25Q4Ce7dtBgP7AnMI7UM0xjk0LnAsuSUE74GSWMDPonuNVCTI0DZ5nePPl5l8csZgDvSOkGge+wSBwcZ4Uy44/ofd1WdR31GP1pHWeRcNMTmyQcn7sNM+2IWHSNeA3smbw2acrGQkVaNq9I5Obxa9P23/dOEiGq4IRBDj5Q1uQ8YLgZOU0mmZrvesXVt+WGZEclTWo7U5TQpp/zaUjEEy+NUMRfK7T2iia2fvUAKXc8W+eyoj3pNifmLf1OO+SBIbtzPW3Uz3szAyTek8EqWoSF8GzSSC5pKgNW5jjV6YlAI9PTliTNl2IxFGkjnOB5F+317YIbovu3KFV3YRt3m5kobuzyWsjFnA0c+RmXQEa+Tf+aKjWmPXn6I6KZUGchIfgqhuqEwRgrG6X01U+vJh2nlZ5uvmj9Cclo7CEQLTae7ozHrKO6fVFDiEseiWlEYDaRYXe/k9sKmjC7SeYGw=
+  distributions: sdist bdist_wheel --universal
+  skip_existing: true
