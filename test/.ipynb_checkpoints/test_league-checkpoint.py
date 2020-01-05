@@ -1,4 +1,4 @@
-from config import *
+from .config import *
 
 def test_leagueId():
     try:

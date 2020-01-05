@@ -125,7 +125,7 @@ class Pantheon():
             
             response = await func(*args, **params)
             
-            if response == None:
+            if response is None:
                 raise exc.Timeout
             
             elif response.status == 200:

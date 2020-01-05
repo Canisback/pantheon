@@ -5,7 +5,7 @@ from pantheon import pantheon
 from pantheon.utils import exceptions as exc
 
 # API details
-api_key = "RGAPI-4f7482a9-540c-4c32-91a5-0ea503d9c480"
+api_key = "RGAPI-635d8aec-c5a2-4656-a3de-cf6c706e1c92"
 server = "euw1"
 panth = pantheon.Pantheon(server, api_key, errorHandling=True)
 
@@ -31,9 +31,9 @@ tournament_region = "EUW"
 tournament_url = "http://test.com"
 tournament_name = "Test"
 
-provider_id = 473
-tournament_id = 4803
-tournament_code = "EUW4803-TOURNAMENTCODE0001"
+provider_id = 633
+tournament_id = 1923
+tournament_code = "EUW1923-TOURNAMENTCODE0001"
 
 # TFT details
 tft_leagueId = "30032c60-f82a-11e9-8d92-a2a060ae885a"
