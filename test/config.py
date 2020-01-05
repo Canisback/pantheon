@@ -31,10 +31,6 @@ tournament_region = "EUW"
 tournament_url = "http://test.com"
 tournament_name = "Test"
 
-provider_id = 633
-tournament_id = 1923
-tournament_code = "EUW1923-TOURNAMENTCODE0001"
-
 # TFT details
 tft_leagueId = "30032c60-f82a-11e9-8d92-a2a060ae885a"
 
