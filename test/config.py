@@ -5,7 +5,7 @@ from pantheon import pantheon
 from pantheon.utils import exceptions as exc
 
 # API details
-api_key = "RGAPI-4250c64b-9f9f-4013-871b-7d03ab82b9ea"
+api_key = "RGAPI-3589e6ed-7d6c-4af2-b9dd-5c793aa549c1"
 server = "euw1"
 panth = pantheon.Pantheon(server, api_key, errorHandling=True)
 

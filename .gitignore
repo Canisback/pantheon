@@ -6,3 +6,4 @@ dist/*
 *.yaml
 *.cfg
 .pypirc
+.ipynb_checkpoints/
