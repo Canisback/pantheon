@@ -1,5 +1,7 @@
-import asyncio, aiohttp
+import asyncio
+import aiohttp
 import json
+from functools import wraps
 
 from .utils import utils as utils
 from .utils import exceptions as exc
@@ -50,13 +52,18 @@ class Pantheon():
         Decorator for rate limiting.
         It will handle the operations needed by the RateLimiterManager to assure the rate limiting and the change of limits considering the returned header.
         """
+        @wraps(func)
         async def waitLimit(*args, **params):
             token = await args[0]._rl.getToken(func.__name__)
             
             response = await func(*args, **params)
             
-            limits = utils.getLimits(response.headers)
-            timestamp = utils.getTimestamp(response.headers)
+            try:
+                limits = utils.getLimits(response.headers)
+                timestamp = utils.getTimestamp(response.headers)
+            except:
+                limits = None
+                timestamp = None
             
             await args[0]._rl.getBack(func.__name__, token, timestamp, limits)
             
@@ -68,7 +75,11 @@ class Pantheon():
         """
         Decorator for handling some errors and retrying if needed.
         """
+        @wraps(func)
         async def _errorHandling(*args, **params):
+            """
+            Error handling function for decorator
+            """
             if not args[0].errorHandling:
                 return await func(*args, **params)
             else:
@@ -121,6 +132,7 @@ class Pantheon():
         """
         Decorator translating status code into exceptions
         """
+        @wraps(func)
         async def _exceptions(*args, **params):
             
             response = await func(*args, **params)
@@ -258,6 +270,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
+        
         return await self.fetch((self.BASE_URL + "league/v4/entries/{queue}/{tier}/{division}?page={page}").format(server=self._server, queue=queue, tier=tier, division=division, page=page))
     
     
@@ -487,7 +500,7 @@ class Pantheon():
     @ratelimit
     async def createTournamentCode(self, tournamentId, data, nb_codes=1, stub=False):
         """
-        :param int tournamentId:tournamentId for which the code will be created
+        :param int tournamentId: tournamentId for which the code will be created
         :param int nb_codes: number of codes to generate
         :param dict data: datafor the code generation, including : 
             list[str] allowedSummonerIds: list of all summonerId (optional)

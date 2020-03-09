@@ -8,6 +8,7 @@ class RateLimiterManager:
     defaultMethodsLimits = {
         "getChampions":[(400,60)],
         "getChampionsById":[(400,60)],
+        "getChampionMasteries":[(20000,10),(1200000,600)],
         "getLeagueById":[(500,10)],
         "getLeaguePosition":[(35,60)],
         "getChallengerLeague":[(500,10)],
