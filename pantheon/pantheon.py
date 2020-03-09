@@ -63,7 +63,7 @@ class Pantheon():
                 timestamp = utils.getTimestamp(response.headers)
             except:
                 limits = None
-                timestamp = None
+                timestamp = utils.getTimestamp(None)
             
             await args[0]._rl.getBack(func.__name__, token, timestamp, limits)
             
