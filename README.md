@@ -110,6 +110,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.0.12 : 
+     * Add support for Clash API
+
  * 1.0.9 : 
      * Clean up some code
      

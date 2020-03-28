@@ -526,7 +526,68 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode
         """
         return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/lobby-events/by-code/{code}".format(stub="-stub" if stub else "", code=tournamentCode))
-
+    
+    
+    # Clash
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getClashTournaments(self):
+        """        
+        Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTournaments
+        """
+        return await self.fetch((self.BASE_URL + "clash/v1/tournaments").format(server=self._server))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getClashTournamentById(self, tournamentId):
+        """
+        :param int tournamentId: id of the tournament
+        
+        Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById
+        """
+        return await self.fetch((self.BASE_URL + "clash/v1/tournaments/{tournamentId}").format(server=self._server, tournamentId=tournamentId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getClashTournamentByTeamId(self, teamId):
+        """
+        :param string teamId: id of the team
+        
+        Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam
+        """
+        return await self.fetch((self.BASE_URL + "clash/v1/tournaments/by-team/{teamId}").format(server=self._server, teamId=teamId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getClashTeamById(self, teamId):
+        """
+        :param string teamId: id of the team
+        
+        Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTeamById
+        """
+        return await self.fetch((self.BASE_URL + "clash/v1/teams/{teamId}").format(server=self._server, teamId=teamId))
+    
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getClashPlayersBySummonerId(self, summonerId):
+        """
+        :param string summonerId: id of the summoner
+        
+        Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getPlayersBySummoner
+        """
+        return await self.fetch((self.BASE_URL + "clash/v1/players/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+    
+    
+    
     # TFT
     @errorHandler
     @exceptions

@@ -10,7 +10,7 @@ def test_tft_leagueId():
     assert type(data["entries"]) == list
     
     
-@pytest.mark.skipif(too_early, reason="Too early in the season")
+@pytest.mark.skipif(too_early_tft, reason="Too early in the season")
 def test_tft_apex_challenger():
     try:
         data = loop.run_until_complete(panth.getTFTChallengerLeague())
@@ -22,7 +22,7 @@ def test_tft_apex_challenger():
     assert type(data["entries"]) == list
     
     
-@pytest.mark.skipif(too_early, reason="Too early in the season")
+@pytest.mark.skipif(too_early_tft, reason="Too early in the season")
 def test_tft_apex_grandmaster():
     try:
         data = loop.run_until_complete(panth.getTFTGrandmasterLeague())
@@ -34,7 +34,7 @@ def test_tft_apex_grandmaster():
     assert type(data["entries"]) == list
     
     
-@pytest.mark.skipif(too_early, reason="Too early in the season")
+@pytest.mark.skipif(too_early_tft, reason="Too early in the season")
 def test_tft_apex_master():
     try:
         data = loop.run_until_complete(panth.getTFTMasterLeague())

@@ -5,7 +5,7 @@ from pantheon import pantheon
 from pantheon.utils import exceptions as exc
 
 # API details
-api_key = "RGAPI-b2336aa3-2a88-4ca2-9fc0-dc8388788f43"
+api_key = "RGAPI-8fa19f91-0d70-442e-ab63-3148ea28ce71"
 server = "euw1"
 panth = pantheon.Pantheon(server, api_key, errorHandling=True)
 
@@ -21,6 +21,7 @@ leagueId = "d112cf40-35be-11e9-947f-c81f66db01ef"
 
 ## Set to True if skipping apex tiers
 too_early = False
+too_early_tft = True
 
 # Match details
 matchId = 4259542242
@@ -37,3 +38,8 @@ tft_leagueId = "30032c60-f82a-11e9-8d92-a2a060ae885a"
 tft_matchId = "EUW1_4268130192"
 
 loop = asyncio.get_event_loop() 
+
+# Clash data
+clash_summonerId = "xh_cze9i1PtqKQgT9WuIYkbIuC8o-koc9qPv-HHQODd-IWs"
+clash_teamId = "1139965"
+clash_tournamentId = 2002
