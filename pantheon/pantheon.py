@@ -10,25 +10,17 @@ from .RateLimit.RateLimiterManager import RateLimiterManager
 
 class Pantheon():
     
-    BASE_URL = "https://{server}.api.riotgames.com/lol/"
-    BASE_URL_TFT = "https://{server}.api.riotgames.com/tft/"
+    BASE_URL = "https://{server}.api.riotgames.com/"
+    BASE_URL_LOL = BASE_URL + "lol/"
+    BASE_URL_TFT = BASE_URL + "tft/"
+    BASE_URL_LOR = BASE_URL + "lor/"
+    BASE_URL_RIOT = BASE_URL + "riot/"
+    BASE_URL_VAL = BASE_URL + "val/"
     
-    tft_server = {
-        "br1":"americas",
-        "eun1":"europe",
-        "euw1":"europe",
-        "jp1":"asia",
-        "kr":"asia",
-        "la1":"americas",
-        "la2":"americas",
-        "na1":"americas",
-        "oc1":"americas",
-        "tr1":"europe",
-        "ru":"europe",
-        "americas":"americas",
-        "europe":"europe",
-        "asia":"asia"
-    }
+    # PLATFORMS = ["br1","eun1","euw1","jp1","kr","la1","la2","na1","oc1","tr1","ru"]
+    REGIONS = ["americas","asia","europe"]
+    TOURNAMENT_REGIONS = ["americas"]
+    
     
     def __init__(self, server, api_key, errorHandling = False, requestsLoggingFunction = None, debug=False):
         """
@@ -38,6 +30,7 @@ class Pantheon():
         It can take the values described there : https://developer.riotgames.com/regional-endpoints.html (euw1, na1...)
         :param string api_key: The API key needed to call the Riot API
         :param boolean errorHandling: Precise if Pantheon should autoretry after a ratelimit (429) or server error (5XX). Default is False
+        :param boolean debug: Allows to print debug messages. Default is False
         """
         self._key = api_key
         self._server = server
@@ -206,7 +199,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries
         """
-        return await self.fetch((self.BASE_URL + "champion-mastery/v4/champion-masteries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "champion-mastery/v4/champion-masteries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -219,7 +212,7 @@ class Pantheon():
 
             Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery
         """
-        return await self.fetch((self.BASE_URL + "champion-mastery/v4/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}").format(server=self._server, summonerId=summonerId, championId=championId))
+        return await self.fetch((self.BASE_URL_LOL + "champion-mastery/v4/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}").format(server=self._server, summonerId=summonerId, championId=championId))
     
     
     @errorHandler
@@ -231,7 +224,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore
         """
-        return await self.fetch((self.BASE_URL + "champion-mastery/v4/scores/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "champion-mastery/v4/scores/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     #Champions
@@ -242,7 +235,7 @@ class Pantheon():
         """
         Returns the result of https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo
         """
-        return await self.fetch((self.BASE_URL + "platform/v3/champion-rotations").format(server=self._server))
+        return await self.fetch((self.BASE_URL_LOL + "platform/v3/champion-rotations").format(server=self._server))
     
     
     #League
@@ -255,7 +248,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById
         """
-        return await self.fetch((self.BASE_URL + "league/v4/leagues/{leagueId}").format(server=self._server, leagueId=leagueId))
+        return await self.fetch((self.BASE_URL_LOL + "league/v4/leagues/{leagueId}").format(server=self._server, leagueId=leagueId))
     
     
     @errorHandler
@@ -271,7 +264,7 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
         
-        return await self.fetch((self.BASE_URL + "league/v4/entries/{queue}/{tier}/{division}?page={page}").format(server=self._server, queue=queue, tier=tier, division=division, page=page))
+        return await self.fetch((self.BASE_URL_LOL + "league/v4/entries/{queue}/{tier}/{division}?page={page}").format(server=self._server, queue=queue, tier=tier, division=division, page=page))
     
     
     @errorHandler
@@ -283,7 +276,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner
         """
-        return await self.fetch((self.BASE_URL + "league/v4/entries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "league/v4/entries/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -299,7 +292,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague
         """
-        return await self.fetch((self.BASE_URL + "league/v4/challengerleagues/by-queue/{queue}").format(server=self._server, queue=queue))
+        return await self.fetch((self.BASE_URL_LOL + "league/v4/challengerleagues/by-queue/{queue}").format(server=self._server, queue=queue))
     
     
     @errorHandler
@@ -315,7 +308,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague
         """
-        return await self.fetch((self.BASE_URL + "league/v4/grandmasterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
+        return await self.fetch((self.BASE_URL_LOL + "league/v4/grandmasterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
     
     
     @errorHandler
@@ -331,7 +324,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague
         """
-        return await self.fetch((self.BASE_URL + "league/v4/masterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
+        return await self.fetch((self.BASE_URL_LOL + "league/v4/masterleagues/by-queue/{queue}").format(server=self._server, queue=queue))
     
     
     #Status
@@ -342,7 +335,7 @@ class Pantheon():
         """
         Returns the result of https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData
         """
-        return await self.fetch((self.BASE_URL + "status/v3/shard-data").format(server=self._server))
+        return await self.fetch((self.BASE_URL_LOL + "status/v3/shard-data").format(server=self._server))
     
     
     #Match
@@ -355,7 +348,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
         """
-        return await self.fetch((self.BASE_URL + "match/v4/matches/{matchId}").format(server=self._server, matchId=matchId))
+        return await self.fetch((self.BASE_URL_LOL + "match/v4/matches/{matchId}").format(server=self._server, matchId=matchId))
         
     
     @errorHandler
@@ -367,7 +360,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline
         """
-        return await self.fetch((self.BASE_URL + "match/v4/timelines/by-match/{matchId}").format(server=self._server, matchId=matchId))
+        return await self.fetch((self.BASE_URL_LOL + "match/v4/timelines/by-match/{matchId}").format(server=self._server, matchId=matchId))
     
     
     @errorHandler
@@ -380,7 +373,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist
         """
-        return await self.fetch((self.BASE_URL + "match/v4/matchlists/by-account/{accountId}{params}").format(server=self._server, accountId=accountId, params = utils.urlParams(params)))
+        return await self.fetch((self.BASE_URL_LOL + "match/v4/matchlists/by-account/{accountId}{params}").format(server=self._server, accountId=accountId, params = utils.urlParams(params)))
     
     
     #Spectator
@@ -393,7 +386,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner
         """
-        return await self.fetch((self.BASE_URL + "spectator/v4/active-games/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "spectator/v4/active-games/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -403,7 +396,7 @@ class Pantheon():
         """
         Returns the result of https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames
         """
-        return await self.fetch((self.BASE_URL + "spectator/v4/featured-games").format(server=self._server))
+        return await self.fetch((self.BASE_URL_LOL + "spectator/v4/featured-games").format(server=self._server))
     
     
     #Summoner
@@ -416,7 +409,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId
         """
-        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "summoner/v4/summoners/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     @errorHandler
@@ -428,7 +421,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId
         """
-        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-account/{accountId}").format(server=self._server, accountId=accountId))
+        return await self.fetch((self.BASE_URL_LOL + "summoner/v4/summoners/by-account/{accountId}").format(server=self._server, accountId=accountId))
     
     
     @errorHandler
@@ -440,7 +433,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName
         """
-        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
+        return await self.fetch((self.BASE_URL_LOL + "summoner/v4/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
     
     
     @errorHandler
@@ -452,7 +445,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#summoner-v4/GET_getByPUUID
         """
-        return await self.fetch((self.BASE_URL + "summoner/v4/summoners/by-puuid/{puuId}").format(server=self._server, puuId=puuId))
+        return await self.fetch((self.BASE_URL_LOL + "summoner/v4/summoners/by-puuid/{puuId}").format(server=self._server, puuId=puuId))
     
     
     #Third Party Code
@@ -465,7 +458,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId
         """
-        return await self.fetch((self.BASE_URL + "platform/v4/third-party-code/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "platform/v4/third-party-code/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     #Tournaments
@@ -479,7 +472,9 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerProviderData
         """
-        return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/providers".format(stub="-stub" if stub else ""), method="POST", data={"region":region, "url":callback_url})
+        if self._server not in self.TOURNAMENT_REGIONS:
+            raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/providers").format(server=self._server, stub="-stub" if stub else ""), method="POST", data={"region":region, "url":callback_url})
     
     
     @errorHandler
@@ -492,7 +487,9 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerTournament
         """
-        return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/tournaments".format(stub="-stub" if stub else ""), method="POST", data={"providerId":providerId, "name":name})
+        if self._server not in self.TOURNAMENT_REGIONS:
+            raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/tournaments").format(server=self._server, stub="-stub" if stub else ""), method="POST", data={"providerId":providerId, "name":name})
     
     
     @errorHandler
@@ -512,7 +509,9 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode
         """
-        return await self.fetch(("https://americas.api.riotgames.com/lol/tournament{stub}/v4/codes?count={nb_codes}&tournamentId={tournamentId}").format(stub="-stub" if stub else "", tournamentId=tournamentId, nb_codes=nb_codes), method="POST", data=data)
+        if self._server not in self.TOURNAMENT_REGIONS:
+            raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/codes?count={nb_codes}&tournamentId={tournamentId}").format(server=self._server, stub="-stub" if stub else "", tournamentId=tournamentId, nb_codes=nb_codes), method="POST", data=data)
     
     
     @errorHandler
@@ -525,7 +524,9 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode
         """
-        return await self.fetch("https://americas.api.riotgames.com/lol/tournament{stub}/v4/lobby-events/by-code/{code}".format(stub="-stub" if stub else "", code=tournamentCode))
+        if self._server not in self.TOURNAMENT_REGIONS:
+            raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/lobby-events/by-code/{code}").format(server=self._server, stub="-stub" if stub else "", code=tournamentCode))
     
     
     # Clash
@@ -536,7 +537,7 @@ class Pantheon():
         """        
         Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTournaments
         """
-        return await self.fetch((self.BASE_URL + "clash/v1/tournaments").format(server=self._server))
+        return await self.fetch((self.BASE_URL_LOL + "clash/v1/tournaments").format(server=self._server))
     
     
     @errorHandler
@@ -548,7 +549,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById
         """
-        return await self.fetch((self.BASE_URL + "clash/v1/tournaments/{tournamentId}").format(server=self._server, tournamentId=tournamentId))
+        return await self.fetch((self.BASE_URL_LOL + "clash/v1/tournaments/{tournamentId}").format(server=self._server, tournamentId=tournamentId))
     
     
     @errorHandler
@@ -560,7 +561,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam
         """
-        return await self.fetch((self.BASE_URL + "clash/v1/tournaments/by-team/{teamId}").format(server=self._server, teamId=teamId))
+        return await self.fetch((self.BASE_URL_LOL + "clash/v1/tournaments/by-team/{teamId}").format(server=self._server, teamId=teamId))
     
     
     @errorHandler
@@ -572,7 +573,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getTeamById
         """
-        return await self.fetch((self.BASE_URL + "clash/v1/teams/{teamId}").format(server=self._server, teamId=teamId))
+        return await self.fetch((self.BASE_URL_LOL + "clash/v1/teams/{teamId}").format(server=self._server, teamId=teamId))
     
     
     @errorHandler
@@ -584,7 +585,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#clash-v1/GET_getPlayersBySummoner
         """
-        return await self.fetch((self.BASE_URL + "clash/v1/players/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
+        return await self.fetch((self.BASE_URL_LOL + "clash/v1/players/by-summoner/{summonerId}").format(server=self._server, summonerId=summonerId))
     
     
     
@@ -666,7 +667,9 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
         """
-        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/{matchId}").format(server= self.tft_server[self._server], matchId=matchId))
+        if self._server not in self.REGIONS:
+            raise exc.InvalidServer(self._server, self.REGIONS)
+        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/{matchId}").format(server=self._server, matchId=matchId))
     
     
     @errorHandler
@@ -678,7 +681,9 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
         """
-        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/by-puuid/{puuId}/ids").format(server= self.tft_server[self._server], puuId=puuId))
+        if self._server not in self.REGIONS:
+            raise exc.InvalidServer(self._server, self.REGIONS)
+        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/by-puuid/{puuId}/ids").format(server= self._server, puuId=puuId))
     
     
     @errorHandler
@@ -728,4 +733,88 @@ class Pantheon():
         """
         return await self.fetch((self.BASE_URL_TFT + "summoner/v1/summoners/by-name/{summonerName}").format(server=self._server, summonerName=summonerName))
     
+    
+    
+    # Riot (general account endpoints)
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getAccountByPuuId(self, puuId):
+        """
+        :param string puuId: puuId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
+        """
+        return await self.fetch((self.BASE_URL_RIOT + "account/v1/accounts/by-puuid/{puuId}").format(server=self._server, puuId=puuId))
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getAccountByRiotId(self, gameName, tagLine):
+        """
+        :param string gameName: name of the player
+        :param string tagLine: tag of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
+        """
+        return await self.fetch((self.BASE_URL_RIOT + "account/v1/accounts/by-riot-id/{gameName}/{tagLine}").format(server=self._server, gameName=gameName, tagLine=tagLine))
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getActiveShards(self, puuId, game):
+        """
+        :param string puuId: puuId of the player
+        :param string game: targeted game ("val" or "lor")
+        
+        Returns the result of https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
+        """
+        return await self.fetch((self.BASE_URL_RIOT + "account/v1/active-shards/by-game/{game}/by-puuid/{puuId}").format(server=self._server, game=game, puuId=puuId))
+    
+    
+    # LoR
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getLeaderboard(self):
+        """
+        Returns the result of https://developer.riotgames.com/apis#lor-ranked-v1/GET_getLeaderboards
+        """
+        return await self.fetch((self.BASE_URL_LOR + "ranked/v1/leaderboards").format(server=self._server))
+    
+    
+    # Valorant
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getValorantContent(self, locale=None):
+        """
+        :param string locale: language return. Default to None
+        
+        Returns the result of https://developer.riotgames.com/apis#val-content-v1/GET_getContent
+        """
+        return await self.fetch((self.BASE_URL_VAL + "content/v1/contents{locale}").format(server=self._server, locale="?locale="+locale if locale is not None else ""))
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getValorantMatch(self, matchId):
+        """
+        :param string matchId: id of the match
+        
+        Returns the result of https://developer.riotgames.com/apis#val-match-v1/GET_getMatch
+        """
+        return await self.fetch((self.BASE_URL_VAL + "match/v1/matches/{matchId}").format(server=self._server, matchId=matchId))
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getValorantMatchlist(self, puuId):
+        """
+        :param string puuId: puuId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#val-match-v1/GET_getMatchlist
+        """
+        return await self.fetch((self.BASE_URL_VAL + "match/v1/matchlists/by-puuid/{puuId}").format(server=self._server, puuId=puuId))
+
     

@@ -1,7 +1,7 @@
 language: python
 python:
-- '3.6'
 - '3.7'
+- '3.8'
 before_install:
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 install:
@@ -14,8 +14,11 @@ after_success:
 - codecov
 deploy:
   provider: pypi
-  user: "__token__"
+  user: __token__
   password:
     secure: OeXWZOJuJMtgMKC6ly5WT/WpHn+Xvz5A6tCpOE3dfRXhL1Bmc4fqbfOGQC6JLPU+5l6VUzrApR3FLk+vmZT6XJ+WjXijilatrBYx3VJcB8PL20qrnpmTgPMIYoSvhb1UpAdJUwZT6RDIoMhddfW+yhi0Lr7gP/YV6y9NOurQYKs2oNvAwA2quwEtQ1eL69BNbkeysRL/HW4SQBlljmOu7IK25Q4Ce7dtBgP7AnMI7UM0xjk0LnAsuSUE74GSWMDPonuNVCTI0DZ5nePPl5l8csZgDvSOkGge+wSBwcZ4Uy44/ofd1WdR31GP1pHWeRcNMTmyQcn7sNM+2IWHSNeA3smbw2acrGQkVaNq9I5Obxa9P23/dOEiGq4IRBDj5Q1uQ8YLgZOU0mmZrvesXVt+WGZEclTWo7U5TQpp/zaUjEEy+NUMRfK7T2iia2fvUAKXc8W+eyoj3pNifmLf1OO+SBIbtzPW3Uz3szAyTek8EqWoSF8GzSSC5pKgNW5jjV6YlAI9PTliTNl2IxFGkjnOB5F+317YIbovu3KFV3YRt3m5kobuzyWsjFnA0c+RmXQEa+Tf+aKjWmPXn6I6KZUGchIfgqhuqEwRgrG6X01U+vJh2nlZ5uvmj9Cclo7CEQLTae7ozHrKO6fVFDiEseiWlEYDaRYXe/k9sKmjC7SeYGw=
   distributions: sdist bdist_wheel --universal
   skip_existing: true
+env:
+  global:
+    secure: NzsPZ2VUuaF7ZxDUcT48zdj5Jgyt5X4VbYjPoZnCoP/QTxv2DbzguSWtMAs/Rr/wZpRmWHP0IYVjwm3Qgtj4PB323L0LC2R1kKZHIWDEuYbr2FHgBHCf1T9ba/OjaV/4YEP71+Y3gtisvMjVd6rKi2/Lft48MbfmJFmU3Ct1xRXGmgC0XvjUgLdDdaa48ByyoN5MzTO1SdL9TKMef1qOWuEIbcoI2zTpeda7/p3f8nAHZ4xdSALw7lUgjJVVL5jInz5a9oodWK6ffeQ2fk1TwPO+JvNvY4l6a21R7g2sVZlZcTFvHWNzYHh5iVcWSd4M7rMv+8F5puhO6qoS9TM/HdNk5G85iRe+1Z8my8+KQK1ikK//y08LlevVSmDBEZ8v9B7KkTw1gla/I8T5xHzmP6wxkAIYhgmYXLgWI1a6GnMT17xifa+Eiti0i1oV/JRTZEyEOAWpN3hvBa4T/XjKvFu+3rkSCCOZhNmDtwWx5P13BNZUoOTw4Efh2s56c0KI0JMZmLMtxdchSSETorwkRCXD5HZPXUmMZVJvEneU7nzQA/K1xzf6bEYMvwqDhynBP6Z8QejIcNo3zEDHU3f70dX6n7kax9/k2LNCDVVKpo+VAvmfUnc4ynPWBnlrM6Z18l3UCc8lgfcQ3+yrfxIs19VyPZdi00120gJ8K7o7/Zc=
