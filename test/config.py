@@ -27,7 +27,7 @@ leagueId = "d112cf40-35be-11e9-947f-c81f66db01ef"
 
 ## Set to True if skipping apex tiers
 too_early = False
-too_early_tft = False
+too_early_tft = True
 
 # Match details
 matchId = 4259542242
