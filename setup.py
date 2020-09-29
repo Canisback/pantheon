@@ -20,7 +20,6 @@ setup(
   keywords = ['Riot API', 'python'],
   classifiers = [],
   install_requires=[
-    "asyncio",
     "aiohttp"
   ],
 )
