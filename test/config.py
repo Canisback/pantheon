@@ -27,7 +27,7 @@ leagueId = "d112cf40-35be-11e9-947f-c81f66db01ef"
 
 ## Set to True if skipping apex tiers
 too_early = False
-too_early_tft = True
+too_early_tft = False
 
 # Match details
 matchId = 4259542242
@@ -54,3 +54,7 @@ clash_tournamentId = 2002
 #Valorant data
 val_puuid = "zxzDtQcrVZGz4-p4e_woWLRZb-DOy2dejjYTH-nLrFgGAjHVXR_qHaOLO80l0YqpKQEo-wtbmbn10w"
 val_matchId = "f35567d8-9587-43f2-80a8-695ad45b1cf5"
+
+# LoR data
+lor_puuid = "4Kk3m_zl1MWJf9VKAsvBmIUKO8LZCqNCLaNgJ0DybNyUU3eydu-lzN88L5RLpn8SxQULn2-SsBKa4Q"
+lor_matchId = "829c361c-edca-4305-bc2d-c205051b0a5d"

@@ -663,7 +663,7 @@ class Pantheon():
     @ratelimit
     async def getTFTMatch(self, matchId):
         """
-        :param int matchId: matchId of the match, also known as gameId
+        :param string matchId: matchId of the match, also known as gameId
         
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
         """
@@ -781,6 +781,26 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/apis#lor-ranked-v1/GET_getLeaderboards
         """
         return await self.fetch((self.BASE_URL_LOR + "ranked/v1/leaderboards").format(server=self._server))
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getLoRMatch(self, matchId):
+        """
+        :param string matchId: matchId of the match, also known as gameId
+        Returns the result of https://developer.riotgames.com/apis#lor-match-v1/GET_getMatch
+        """
+        return await self.fetch((self.BASE_URL_LOR + "match/v1/matches/{matchId}").format(server=self._server, matchId=matchId))
+    
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getLoRMatchlist(self, puuId):
+        """
+        :param string puuId: puuId of the player
+        Returns the result of https://developer.riotgames.com/apis#lor-match-v1/GET_getMatchIdsByPUUID
+        """
+        return await self.fetch((self.BASE_URL_LOR + "match/v1/matches/by-puuid/{puuid}/ids").format(server=self._server, puuid=puuId))
     
     
     # Valorant

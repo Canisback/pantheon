@@ -110,6 +110,10 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.2.0 : 
+     * Add LoR match and matchlist
+     * Update deprecated lock handling
+
  * 1.1.0 : 
      * Add support for LoR and Valorant
      * Deleting auto-handling server to region for TFT matches and LoL tournaments endpoints, will break apps using these endpoint without creating another instance of Pantheon with the correct server
