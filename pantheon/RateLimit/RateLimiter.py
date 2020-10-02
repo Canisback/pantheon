@@ -65,7 +65,7 @@ class RateLimiter:
     
     #Fired when a request is back
     async def getBack(self, num:int, timestamp:int, limit=None):
-        with await self.backLock:
+        async with self.backLock:
             
             #If the current time window is up to date
             if self.time + self.duration > timestamp:
@@ -97,7 +97,7 @@ class RateLimiter:
 
     async def getToken(self):
 
-        with await self.lock:
+        async with self.lock:
                 #Check if outside time window, reset count
                 if self.time + self.duration < time.mktime(datetime.datetime.utcnow().timetuple()):
 
@@ -121,7 +121,7 @@ class RateLimiter:
                     await asyncio.sleep( int((self.time + self.duration) - time.mktime(datetime.datetime.utcnow().timetuple())) + 1)
 
                     
-                with await self.backLock:
+                async with self.backLock:
                     #Double check if a reset has not occured in the mean time
                     timestamp = time.mktime(datetime.datetime.utcnow().timetuple())
                     if self.time + self.duration < timestamp:
