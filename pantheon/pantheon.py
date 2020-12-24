@@ -374,8 +374,33 @@ class Pantheon():
         Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist
         """
         return await self.fetch((self.BASE_URL_LOL + "match/v4/matchlists/by-account/{accountId}{params}").format(server=self._server, accountId=accountId, params = utils.urlParams(params)))
-    
-    
+
+
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getMatchIdsByTournamentCode(self, tournamentCode):
+        """
+        :param int tournamentCode: tournamentCode from a game in a tournament
+        
+        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode
+        """
+        return await self.fetch((self.BASE_URL_LOL + "match/v4/matches/by-tournament-code/{tournamentCode}/ids").format(server=self._server, tournamentCode=tournamentCode))
+
+
+    @errorHandler
+    @exceptions
+    @ratelimit
+    async def getMatchByTournamentCode(self, matchId, tournamentCode):
+        """
+        :param int matchId: matchId of the match, also known as gameId
+        :param int tournamentCode: tournamentCode from a game in a tournament
+        
+        Returns the result of https://developer.riotgames.com/apis#match-v4/GET_getMatchByTournamentCode
+        """
+        return await self.fetch((self.BASE_URL_LOL + "match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}").format(server=self._server, matchId=matchId, tournamentCode=tournamentCode))
+
+
     #Spectator
     @errorHandler
     @exceptions
