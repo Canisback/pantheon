@@ -110,6 +110,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.2.1 : 
+     * Add Tournament matches endpoints
+
  * 1.2.0 : 
      * Add LoR match and matchlist
      * Update deprecated lock handling

@@ -3,7 +3,8 @@ test.py
 build/*
 docs/*
 dist/*
+.tox/*
 *.yaml
 *.cfg
 .pypirc
-.ipynb_checkpoints/
+*.ipynb_checkpoints/*

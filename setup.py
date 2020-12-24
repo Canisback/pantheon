@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
   name = 'pantheon',
   packages = find_packages(),
-  version = '1.2.0',
+  version = '1.2.1',
   description = 'Riot API library for Python and asyncio',
   long_description=long_description,
   long_description_content_type='text/markdown',
