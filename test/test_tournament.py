@@ -3,7 +3,7 @@ from .config import *
 
 def test_providers():
     try:
-        data = loop.run_until_complete(panth_americas.registerProvider(tournament_region, tournament_url, stub))
+        data = loop.run_until_complete(panth.registerProvider(tournament_region, tournament_url, stub))
     except exc.Unauthorized as e:
         pytest.skip("API key unauthorized for tournament")
     except Exception as e:
@@ -13,8 +13,8 @@ def test_providers():
 
 def test_tournaments():
     try:
-        provider_id = loop.run_until_complete(panth_americas.registerProvider(tournament_region, tournament_url, stub))
-        data = loop.run_until_complete(panth_americas.registerTournament(provider_id, tournament_name, stub))
+        provider_id = loop.run_until_complete(panth.registerProvider(tournament_region, tournament_url, stub))
+        data = loop.run_until_complete(panth.registerTournament(provider_id, tournament_name, stub))
     except exc.Unauthorized as e:
         pytest.skip("API key unauthorized for tournament")
     except Exception as e:
@@ -32,9 +32,9 @@ def test_code():
         "teamSize": 5
     }
     try:
-        provider_id = loop.run_until_complete(panth_americas.registerProvider(tournament_region, tournament_url, stub))
-        tournament_id = loop.run_until_complete(panth_americas.registerTournament(provider_id, tournament_name, stub))
-        data = loop.run_until_complete(panth_americas.createTournamentCode(tournament_id, data_input, 1, stub))
+        provider_id = loop.run_until_complete(panth.registerProvider(tournament_region, tournament_url, stub))
+        tournament_id = loop.run_until_complete(panth.registerTournament(provider_id, tournament_name, stub))
+        data = loop.run_until_complete(panth.createTournamentCode(tournament_id, data_input, 1, stub))
     except exc.Unauthorized as e:
         pytest.skip("API key unauthorized for tournament")
     except Exception as e:
@@ -53,9 +53,9 @@ def test_multiple_codes():
         "teamSize": 5
     }
     try:
-        provider_id = loop.run_until_complete(panth_americas.registerProvider(tournament_region, tournament_url, stub))
-        tournament_id = loop.run_until_complete(panth_americas.registerTournament(provider_id, tournament_name, stub))
-        data = loop.run_until_complete(panth_americas.createTournamentCode(tournament_id, data_input, 5, stub))
+        provider_id = loop.run_until_complete(panth.registerProvider(tournament_region, tournament_url, stub))
+        tournament_id = loop.run_until_complete(panth.registerTournament(provider_id, tournament_name, stub))
+        data = loop.run_until_complete(panth.createTournamentCode(tournament_id, data_input, 5, stub))
     except exc.Unauthorized as e:
         pytest.skip("API key unauthorized for tournament")
     except Exception as e:
@@ -67,8 +67,8 @@ def test_multiple_codes():
     
 def test_lobby():
     try:
-        provider_id = loop.run_until_complete(panth_americas.registerProvider(tournament_region, tournament_url, stub))
-        data = loop.run_until_complete(panth_americas.getLobbyEvents(provider_id, stub))
+        provider_id = loop.run_until_complete(panth.registerProvider(tournament_region, tournament_url, stub))
+        data = loop.run_until_complete(panth.getLobbyEvents(provider_id, stub))
     except exc.Unauthorized as e:
         pytest.skip("API key unauthorized for tournament")
     except Exception as e:

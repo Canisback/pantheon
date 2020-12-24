@@ -19,7 +19,8 @@ class Pantheon():
     
     # PLATFORMS = ["br1","eun1","euw1","jp1","kr","la1","la2","na1","oc1","tr1","ru"]
     REGIONS = ["americas","asia","europe"]
-    TOURNAMENT_REGIONS = ["americas"]
+    TOURNAMENT_REGIONS = ["BR", "EUNE", "EUW", "JP", "LAN", "LAS", "NA", "OCE", "PBE", "RU", "TR"]
+
     
     
     def __init__(self, server, api_key, errorHandling = False, requestsLoggingFunction = None, debug=False):
@@ -492,12 +493,12 @@ class Pantheon():
     @ratelimit
     async def registerProvider(self, region, callback_url, stub=False):
         """
-        :param str region: region to get a provider for
+        :param str region: region to get a provider for, valid values are BR, EUNE, EUW, JP, LAN, LAS, NA, OCE, PBE, RU, TR
         :param str callback_url: url to which a callback will be sent after each match created with a tournament code from this provider
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerProviderData
         """
-        if self._server not in self.TOURNAMENT_REGIONS:
+        if region not in self.TOURNAMENT_REGIONS:
             raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
         return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/providers").format(server=self._server, stub="-stub" if stub else ""), method="POST", data={"region":region, "url":callback_url})
     
@@ -512,8 +513,6 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerTournament
         """
-        if self._server not in self.TOURNAMENT_REGIONS:
-            raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
         return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/tournaments").format(server=self._server, stub="-stub" if stub else ""), method="POST", data={"providerId":providerId, "name":name})
     
     
@@ -534,8 +533,6 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode
         """
-        if self._server not in self.TOURNAMENT_REGIONS:
-            raise exc.InvalidServer(self._server,self.TOURNAMENT_REGIONS)
         return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/codes?count={nb_codes}&tournamentId={tournamentId}").format(server=self._server, stub="-stub" if stub else "", tournamentId=tournamentId, nb_codes=nb_codes), method="POST", data=data)
     
     
