@@ -53,7 +53,7 @@ clash_tournamentId = 2002
 
 #Valorant data
 val_puuid = "zxzDtQcrVZGz4-p4e_woWLRZb-DOy2dejjYTH-nLrFgGAjHVXR_qHaOLO80l0YqpKQEo-wtbmbn10w"
-val_matchId = "3ddbc30c-fb85-4a28-b2e0-c5f0c5038c17"
+val_matchId = "1bbaca47-2918-49c5-9b25-caa9d8ea63fa"
 
 # LoR data
 lor_puuid = "4Kk3m_zl1MWJf9VKAsvBmIUKO8LZCqNCLaNgJ0DybNyUU3eydu-lzN88L5RLpn8SxQULn2-SsBKa4Q"
