@@ -32,6 +32,9 @@ class RateLimiter:
         #Debug mode
         self.debug = debug
         
+    def __str__(self):
+        return "{:>20} : {:>7}/{:>7} per {:>5} seconds".format(self.name, self.count, self.limit, self.duration)
+        
         
     #Allows to update the limit number of requests
     def updateLimit(self,limit: int):

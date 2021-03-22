@@ -39,6 +39,9 @@ class Pantheon():
         self.errorHandling = errorHandling
         self.requestsLoggingFunction = requestsLoggingFunction
         self.debug = debug
+        
+    def __str__(self):
+        return str(self._rl)
 
     def ratelimit(func):
         """

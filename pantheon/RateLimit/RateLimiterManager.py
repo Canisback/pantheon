@@ -36,6 +36,14 @@ class RateLimiterManager:
             for methodLimit in self.defaultMethodsLimits[method]:
                 self.methods[method].append(RateLimiter(self.debug,methodLimit, method))
         
+    def __str__(self):
+        s = "Rate limits : \n"
+        for l in self.application:
+            s += "\t" + str(l) + "\n"
+        for m in self.methods:
+            for ml in self.methods[m]:
+                s += "\t" + str(ml) + "\n"
+        return s
     
     def updateApplicationLimit(self, duration:int, limit:int):
         for appLimit in self.application:
@@ -118,7 +126,12 @@ class RateLimiterManager:
                 
             for duration in limits[1]:
                 #If the limit exists in the returned header but not in the manager, create it
-                self.updateMethodsLimit(method, duration,limits[1][duration])
+                self.updateMethodsLimit(method, duration, limits[1][duration])
+                for methodLimit in self.methods[method]:
+                    if duration == methodLimit.getDuration():
+                        methodLimit.count += 1
+                        return
+                
     
     def displayMethodsLimit(self):
         for method in self.methods:

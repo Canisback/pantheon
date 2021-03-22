@@ -7,4 +7,5 @@ dist/*
 *.yaml
 *.cfg
 .pypirc
-*.ipynb_checkpoints/*
+*.ipynb_checkpoints*
+htmlcov/*
