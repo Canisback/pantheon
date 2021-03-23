@@ -110,6 +110,9 @@ print(loop.run_until_complete(getRecentMatches(accountId)))
 
 **Changelog :**
 
+ * 1.3.1 : 
+     * Add a locked function to check if at least one limiter is locked
+
  * 1.3.0 : 
      * Add custom str function for pantheon that returns the rate limits details
      * Fixed a rate limit bug not counting a request when creating a new limit

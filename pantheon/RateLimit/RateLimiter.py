@@ -34,6 +34,9 @@ class RateLimiter:
         
     def __str__(self):
         return "{:>20} : {:>7}/{:>7} per {:>5} seconds".format(self.name, self.count, self.limit, self.duration)
+    
+    def locked(self):
+        return self.lock.locked()
         
         
     #Allows to update the limit number of requests
@@ -99,7 +102,7 @@ class RateLimiter:
                 
 
     async def getToken(self):
-
+        
         async with self.lock:
                 #Check if outside time window, reset count
                 if self.time + self.duration < time.mktime(datetime.datetime.utcnow().timetuple()):

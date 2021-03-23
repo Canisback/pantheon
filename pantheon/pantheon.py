@@ -42,6 +42,12 @@ class Pantheon():
         
     def __str__(self):
         return str(self._rl)
+    
+    def locked(self):
+        """
+        Return True if at least one limiter is locked
+        """
+        return self._rl.locked()
 
     def ratelimit(func):
         """

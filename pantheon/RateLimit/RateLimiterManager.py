@@ -45,6 +45,9 @@ class RateLimiterManager:
                 s += "\t" + str(ml) + "\n"
         return s
     
+    def locked(self):
+        return any([l.locked() for l in self.application] + [ml.locked() for m in self.methods for ml in self.methods[m]])
+    
     def updateApplicationLimit(self, duration:int, limit:int):
         for appLimit in self.application:
             if duration == appLimit.getDuration():
