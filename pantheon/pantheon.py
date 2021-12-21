@@ -34,6 +34,7 @@ class Pantheon():
         """
         self._key = api_key
         self._server = server
+        self._region = utils.serverToRegion(server)
         self._rl = RateLimiterManager(debug)
         
         self.errorHandling = errorHandling
@@ -355,9 +356,9 @@ class Pantheon():
         """
         :param int matchId: matchId of the match, also known as gameId
         
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
+        Returns the result of https://developer.riotgames.com/apis#match-v5/GET_getMatch
         """
-        return await self.fetch((self.BASE_URL_LOL + "match/v4/matches/{matchId}").format(server=self._server, matchId=matchId))
+        return await self.fetch((self.BASE_URL_LOL + "match/v5/matches/{matchId}").format(server=self._region, matchId=matchId))
         
     
     @errorHandler
@@ -367,47 +368,22 @@ class Pantheon():
         """
         :param int matchId: matchId of the match, also known as gameId
         
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline
+        Returns the result of https://developer.riotgames.com/apis#match-v5/GET_getTimeline
         """
-        return await self.fetch((self.BASE_URL_LOL + "match/v4/timelines/by-match/{matchId}").format(server=self._server, matchId=matchId))
+        return await self.fetch((self.BASE_URL_LOL + "match/v5/matches/{matchId}/timeline").format(server=self._region, matchId=matchId))
     
     
     @errorHandler
     @exceptions
     @ratelimit
-    async def getMatchlist(self, accountId, params=None):
+    async def getMatchlist(self, puuid, params=None):
         """
-        :param string accountId: accountId of the player
+        :param string puuid: puuid of the player
         :param object params: all key:value params to add to the request
         
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist
+        Returns the result of https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
         """
-        return await self.fetch((self.BASE_URL_LOL + "match/v4/matchlists/by-account/{accountId}{params}").format(server=self._server, accountId=accountId, params = utils.urlParams(params)))
-
-
-    @errorHandler
-    @exceptions
-    @ratelimit
-    async def getMatchIdsByTournamentCode(self, tournamentCode):
-        """
-        :param int tournamentCode: tournamentCode from a game in a tournament
-        
-        Returns the result of https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode
-        """
-        return await self.fetch((self.BASE_URL_LOL + "match/v4/matches/by-tournament-code/{tournamentCode}/ids").format(server=self._server, tournamentCode=tournamentCode))
-
-
-    @errorHandler
-    @exceptions
-    @ratelimit
-    async def getMatchByTournamentCode(self, matchId, tournamentCode):
-        """
-        :param int matchId: matchId of the match, also known as gameId
-        :param int tournamentCode: tournamentCode from a game in a tournament
-        
-        Returns the result of https://developer.riotgames.com/apis#match-v4/GET_getMatchByTournamentCode
-        """
-        return await self.fetch((self.BASE_URL_LOL + "match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}").format(server=self._server, matchId=matchId, tournamentCode=tournamentCode))
+        return await self.fetch((self.BASE_URL_LOL + "match/v5/matches/by-puuid/{puuid}/ids{params}").format(server=self._region, puuid=puuid, params = utils.urlParams(params)))
 
 
     #Spectator
