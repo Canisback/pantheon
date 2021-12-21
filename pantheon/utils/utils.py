@@ -14,6 +14,18 @@ def getLimits(headers):
         return (appLimits,methodLimits)
     return None
 
+def serverToRegion(server):
+    americas = ["br1", "la1", "la2", "na1", "oc1"]
+    europe = ["eun1", "euw1", "tr1", "ru"]
+    asia = ["kr", "jp1"]
+    if server in americas:
+        return "americas"
+    elif server in europe:
+        return "europe"
+    elif server in asia:
+        return "asia"
+    return None
+
 def dateToTimestamp(date):
     return int(time.mktime(datetime.datetime.strptime(date, '%a, %d %b %Y %H:%M:%S GMT').timetuple()))
 
