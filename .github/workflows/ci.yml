@@ -9,6 +9,8 @@ on:
 jobs:
   testing:
     runs-on: ubuntu-latest
+    env:
+      PANTHEON_KEY: ${{ secrets.PANTHEON_KEY }}
     strategy:
       matrix:
         python-version: [3.7, '3.10']
