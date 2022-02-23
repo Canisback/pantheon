@@ -2,10 +2,9 @@ from .config import *
 
 def test_status():
     try:
-        data = loop.run_until_complete(panth.getStatus())
+        data = loop.run_until_complete(panth.get_status())
     except Exception as e:
         print(e)
     
-    assert data["region_tag"] == "eu"
-    assert data["slug"] == "euw"
-    assert type(data["services"]) == list
+    assert data["id"] == "EUW1"
+    assert type(data["incidents"]) == list

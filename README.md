@@ -8,11 +8,11 @@
 
 Simple library to use the Riot API with Python Asyncio.
 
-Supports all endpoints except static data and the tournaments ones (and matchs by tournament code).
+Supports all endpoints.
 
-It has an efficient rate limiting system as well as an error handler that automatically resend request on when needed.
+It has an efficient rate limiting system as well as an error handler that automatically resend request when needed.
 
-**There is no cache implemented for now**
+**There is no cache implemented**
 
 **The rate limit count is only kept while the script is alive**
 

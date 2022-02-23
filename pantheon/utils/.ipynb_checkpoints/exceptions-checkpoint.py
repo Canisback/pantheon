@@ -40,3 +40,7 @@ class BadRequest(Exception):
 class Timeout(Exception):
     def __init__(self):
         Exception.__init__(self,"Timeout reached, try again alter")
+        
+class InvalidServer(Exception):
+    def __init__(self, current_server, accepted_servers):
+        Exception.__init__(self,"Server given is {current_server}, should be one of the following : {accepted_servers}" .format(current_server=current_server, accepted_servers=",".join(accepted_servers)))

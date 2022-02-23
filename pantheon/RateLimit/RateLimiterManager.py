@@ -1,24 +1,78 @@
 from .RateLimiter import RateLimiter
+from ..utils.utils import Singleton
 
 class RateLimiterManager:
+    def __init__(self, debug):
+        
+        PLATFORMS = ["br1","eun1","euw1","jp1","kr","la1", "la2","na1","oc1","tr1","ru"]
+        REGIONS = ["americas","asia","europe",                    "esports","ap","br","eu","kr","latam","na"]
+        
+        self.debug=debug
+        
+        self._rls = {server:RateLimiterServer(self.debug) for server in PLATFORMS + REGIONS}
+        
+    def on(self, server):
+        return self._rls[server]
+    
+class RateLimiterServer:
     
     #Default application rate limit
     defaultApplicationLimits = [(20,1),(100,120)]
     
     defaultMethodsLimits = {
-        "getChampions":[(400,60)],
-        "getChampionsById":[(400,60)],
-        "getChampionMasteries":[(20000,10),(1200000,600)],
-        "getLeagueById":[(500,10)],
-        "getLeaguePosition":[(35,60)],
-        "getChallengerLeague":[(500,10)],
-        "getMasterLeague":[(500,10)],
-        "getMatch":[(500,10)],
-        "getTimeline":[(500,10)],
-        "getMatchlist":[(1000,10)],
-        "getSummoner":[(600,60)],
-        "getSummonerByName":[(600,60)],
-        "getSummonerByAccount":[(1000,60)],
+        "get_champion_masteries":[(2000,60)],
+        "get_champion_masteries_by_championId":[(2000,60)],
+        "get_champion_masteries_score":[(2000,60)],
+        "get_champion_rotations":[(30,10),(500,600)],
+        "get_league_by_id":[(500,10)],
+        "get_league_pages":[(50,10)],
+        "get_league_position":[(300,60)],
+        "get_challenger_league":[(30,10),(500,600)],
+        "get_grandmaster_league":[(30,10),(500,600)],
+        "get_master_league":[(30,10),(500,600)],
+        "get_status":[(20000,10),(1200000,600)],
+        "get_match":[(250,10)],
+        "get_timeline":[(250,10)],
+        "get_matchlist":[(500,10)],
+        "get_current_game":[(20000,10),(1200000,600)],
+        "get_featured_games":[(20000,10),(1200000,600)],
+        "get_summoner":[(2000,60)],
+        "get_summoner_by_accountId":[(2000,60)],
+        "get_summoner_by_name":[(2000,60)],
+        "get_summoner_by_puuId":[(2000,60)],
+        "get_third_party_code":[(500,60)],
+        "register_provider":[(10,10),(500,600)],
+        "register_tournament":[(30,10),(500,600)],
+        "create_tournament_code":[(30,10),(500,600)],
+        "get_lobby_events":[(30,10),(500,600)],
+        "get_clash_tournaments":[(10,60)],
+        "get_clash_tournament_by_id":[(10,60)],
+        "get_clash_tournament_by_teamId":[(200,60)],
+        "get_clash_team_by_id":[(200,60)],
+        "get_clash_players_by_summonerId":[(200,60)],
+        "get_tft_league_by_id":[(100,10)],
+        "get_tft_league_pages":[(50,10)],
+        "get_tft_league_position":[(300,60)],
+        "get_tft_challenger_league":[(30,10),(500,600)],
+        "get_tft_grandmaster_league":[(30,10),(500,600)],
+        "get_tft_master_league":[(30,10),(500,600)],
+        "get_tft_match":[(200,10)],
+        "get_tft_matchlist":[(400,10)],
+        "get_tft_summoner":[(2000,60)],
+        "get_tft_summoner_by_accountId":[(2000,60)],
+        "get_tft_summoner_by_name":[(2000,60)],
+        "get_tft_summoner_by_puuId":[(2000,60)],
+        "get_account_by_puuId":[(1000,60)],
+        "get_account_by_riotId":[(1000,60)],
+        "get_active_shards":[(20000,10),(1200000,600)],
+        "get_lor_leaderboard":[(30,10),(500,600)],
+        "get_lor_match":[(100,3600)],
+        "get_lor_matchlist":[(200,3600)],
+        "get_valorant_content":[(60,60)],
+        "get_valorant_match":[(60,60)],
+        "get_valorant_matchlist":[(120,60)],
+        "get_valorant_recent_matches":[(60,60)],
+        "get_valorant_leaderboard":[(10,10)]
     }
     
     def __init__(self, debug):

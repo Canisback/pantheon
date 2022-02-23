@@ -3,7 +3,7 @@ from .config import *
 
 def test_championMastery_by_summonerId():
     try:
-        data = loop.run_until_complete(panth.getChampionMasteries(summonerId))
+        data = loop.run_until_complete(panth.get_champion_masteries(summonerId))
     except Exception as e:
         print(e)
     
@@ -13,7 +13,7 @@ def test_championMastery_by_summonerId():
 
 def test_championMastery_by_summonerId_by_championId():
     try:
-        data = loop.run_until_complete(panth.getChampionMasteriesByChampionId(summonerId, 89)) # Leona
+        data = loop.run_until_complete(panth.get_champion_masteries_by_championId(summonerId, 89)) # Leona
     except Exception as e:
         print(e)
     
@@ -23,7 +23,7 @@ def test_championMastery_by_summonerId_by_championId():
 
 def test_championMasteryScore_by_summonerId():
     try:
-        data = loop.run_until_complete(panth.getChampionMasteriesScore(summonerId))
+        data = loop.run_until_complete(panth.get_champion_masteries_score(summonerId))
     except Exception as e:
         print(e)
     

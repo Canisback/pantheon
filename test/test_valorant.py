@@ -2,7 +2,7 @@ from .config import *
 
 def test_content():
     try:
-        data = loop.run_until_complete(panth_eu.getValorantContent())
+        data = loop.run_until_complete(panth_eu.get_valorant_content())
     except Exception as e:
         print(e)
     
@@ -16,7 +16,7 @@ def test_content():
     
 def test_match():
     try:
-        data = loop.run_until_complete(panth_eu.getValorantMatch(val_matchId))
+        data = loop.run_until_complete(panth_eu.get_valorant_match(val_matchId))
     except Exception as e:
         print(e)
     
@@ -29,7 +29,7 @@ def test_match():
     
 def test_matchlist():
     try:
-        data = loop.run_until_complete(panth_eu.getValorantMatchlist(val_puuid))
+        data = loop.run_until_complete(panth_eu.get_valorant_matchlist(val_puuid))
     except Exception as e:
         print(e)
     
@@ -37,5 +37,13 @@ def test_matchlist():
     assert "history" in data
     
     assert type(data["history"]) == list
+    
+def test_recent_matchlist():
+    try:
+        data = loop.run_until_complete(panth_eu.get_valorant_recent_matches("competitive"))
+    except Exception as e:
+        print(e)
+    
+    assert type(data["matchIds"]) == list
     
     

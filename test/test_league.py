@@ -2,7 +2,7 @@ from .config import *
 
 def test_leagueId():
     try:
-        data = loop.run_until_complete(panth.getLeagueById(leagueId))
+        data = loop.run_until_complete(panth.get_league_by_id(leagueId))
     except Exception as e:
         print(e)
     
@@ -13,7 +13,7 @@ def test_leagueId():
 @pytest.mark.skipif(too_early, reason="Too early in the season")
 def test_apex_challenger():
     try:
-        data = loop.run_until_complete(panth.getChallengerLeague())
+        data = loop.run_until_complete(panth.get_challenger_league())
     except Exception as e:
         print(e)
     
@@ -25,7 +25,7 @@ def test_apex_challenger():
 @pytest.mark.skipif(too_early, reason="Too early in the season")
 def test_apex_challenger_flex():
     try:
-        data = loop.run_until_complete(panth.getChallengerLeague("RANKED_FLEX_SR"))
+        data = loop.run_until_complete(panth.get_challenger_league("RANKED_FLEX_SR"))
     except Exception as e:
         print(e)
     
@@ -37,7 +37,7 @@ def test_apex_challenger_flex():
 @pytest.mark.skipif(too_early, reason="Too early in the season")
 def test_apex_grandmaster():
     try:
-        data = loop.run_until_complete(panth.getGrandmasterLeague())
+        data = loop.run_until_complete(panth.get_grandmaster_league())
     except Exception as e:
         print(e)
     
@@ -49,7 +49,7 @@ def test_apex_grandmaster():
 @pytest.mark.skipif(too_early, reason="Too early in the season")
 def test_apex_grandmaster_flex():
     try:
-        data = loop.run_until_complete(panth.getGrandmasterLeague("RANKED_FLEX_SR"))
+        data = loop.run_until_complete(panth.get_grandmaster_league("RANKED_FLEX_SR"))
     except Exception as e:
         print(e)
     
@@ -61,7 +61,7 @@ def test_apex_grandmaster_flex():
 @pytest.mark.skipif(too_early, reason="Too early in the season")
 def test_apex_master():
     try:
-        data = loop.run_until_complete(panth.getMasterLeague())
+        data = loop.run_until_complete(panth.get_master_league())
     except Exception as e:
         print(e)
     
@@ -73,7 +73,7 @@ def test_apex_master():
 @pytest.mark.skipif(too_early, reason="Too early in the season")
 def test_apex_master_flex():
     try:
-        data = loop.run_until_complete(panth.getMasterLeague("RANKED_FLEX_SR"))
+        data = loop.run_until_complete(panth.get_master_league("RANKED_FLEX_SR"))
     except Exception as e:
         print(e)
     
@@ -84,7 +84,7 @@ def test_apex_master_flex():
     
 def test_league_entries_by_summonerId():
     try:
-        data = loop.run_until_complete(panth.getLeaguePosition(summonerId))
+        data = loop.run_until_complete(panth.get_league_position(summonerId))
     except Exception as e:
         print(e)
     
@@ -93,7 +93,7 @@ def test_league_entries_by_summonerId():
 
 def test_league_entries():
     try:
-        data = loop.run_until_complete(panth.getLeaguePages())
+        data = loop.run_until_complete(panth.get_league_pages())
     except Exception as e:
         print(e)
     
@@ -111,7 +111,7 @@ def test_league_entries():
 
 def test_league_entries_params():
     try:
-        data = loop.run_until_complete(panth.getLeaguePages(queue="RANKED_FLEX_SR", tier="SILVER", division="III"))
+        data = loop.run_until_complete(panth.get_league_pages(queue="RANKED_FLEX_SR", tier="SILVER", division="III"))
     except Exception as e:
         print(e)
     
@@ -129,12 +129,12 @@ def test_league_entries_params():
 
 def test_league_entries_pages():
     try:
-        data = loop.run_until_complete(panth.getLeaguePages(queue="RANKED_FLEX_SR", tier="SILVER", division="III", page=1))
+        data = loop.run_until_complete(panth.get_league_pages(queue="RANKED_FLEX_SR", tier="SILVER", division="III", page=1))
     except Exception as e:
         print(e)
         
     try:
-        data_2 = loop.run_until_complete(panth.getLeaguePages(queue="RANKED_FLEX_SR", tier="SILVER", division="III", page=2))
+        data_2 = loop.run_until_complete(panth.get_league_pages(queue="RANKED_FLEX_SR", tier="SILVER", division="III", page=2))
     except Exception as e:
         print(e)
     

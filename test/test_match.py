@@ -2,64 +2,52 @@ from .config import *
 
 def test_match():
     try:
-        data = loop.run_until_complete(panth.getMatch(matchId))
+        data = loop.run_until_complete(panth.get_match(matchId))
     except Exception as e:
         print(e)
     
-    assert data["gameId"] == matchId
-    assert "participants" in data
+    assert data["metadata"]["matchId"] == matchId
+    assert "participants" in data["info"]
 
     
 def test_timeline():
     try:
-        data = loop.run_until_complete(panth.getTimeline(matchId))
+        data = loop.run_until_complete(panth.get_timeline(matchId))
     except Exception as e:
         print(e)
     
-    assert "frames" in data
+    assert "frames" in data["info"]
     
 
 def test_matchlist():
     try:
-        data = loop.run_until_complete(panth.getMatchlist(accountId))
+        data = loop.run_until_complete(panth.get_matchlist(puuId))
     except exc.NotFound as e:
         pytest.skip("no match found")
     except Exception as e:
         print(e)
     
-    assert type(data["matches"]) == list
+    assert type(data) == list
     
 
 def test_matchlist_params():
     try:
-        data = loop.run_until_complete(panth.getMatchlist(accountId, {"queue":420}))
+        data = loop.run_until_complete(panth.get_matchlist(puuId, {"queue":420}))
     except exc.NotFound as e:
         pytest.skip("no match found")
     except Exception as e:
         print(e)
     
-    assert all([m["queue"] == 420 for m in data["matches"]])
-    
-
-def test_matchlist_params_set():
-    try:
-        data = loop.run_until_complete(panth.getMatchlist(accountId, {"queue":[420,430]}))
-    except exc.NotFound as e:
-        pytest.skip("no match found")
-    except Exception as e:
-        print(e)
-    
-    assert not all([m["queue"] == 420 for m in data["matches"]])
-    assert all([m["queue"] == 420 or m["queue"] == 430 for m in data["matches"]])
+    assert type(data) == list
     
 
 def test_matchlist_params_multi():
     try:
-        data = loop.run_until_complete(panth.getMatchlist(accountId, {"queue":420, "champion":89}))
+        data = loop.run_until_complete(panth.get_matchlist(puuId, {"queue":900, "start":10}))
     except exc.NotFound as e:
         pytest.skip("no match found")
     except Exception as e:
         print(e)
     
-    assert all([m["queue"] == 420 and m["champion"] == 89 for m in data["matches"]])
+    assert type(data) == list
     

@@ -2,7 +2,7 @@ from .config import *
 
 def test_tft_leagueId():
     try:
-        data = loop.run_until_complete(panth.getTFTLeagueById(tft_leagueId))
+        data = loop.run_until_complete(panth.get_tft_league_by_id(tft_leagueId))
     except Exception as e:
         print(e)
     
@@ -10,10 +10,10 @@ def test_tft_leagueId():
     assert type(data["entries"]) == list
     
     
-@pytest.mark.skipif(too_early, reason="Too early in the season")
+@pytest.mark.skipif(too_early_tft, reason="Too early in the season")
 def test_tft_apex_challenger():
     try:
-        data = loop.run_until_complete(panth.getTFTChallengerLeague())
+        data = loop.run_until_complete(panth.get_tft_challenger_league())
     except Exception as e:
         print(e)
     
@@ -22,10 +22,10 @@ def test_tft_apex_challenger():
     assert type(data["entries"]) == list
     
     
-@pytest.mark.skipif(too_early, reason="Too early in the season")
+@pytest.mark.skipif(too_early_tft, reason="Too early in the season")
 def test_tft_apex_grandmaster():
     try:
-        data = loop.run_until_complete(panth.getTFTGrandmasterLeague())
+        data = loop.run_until_complete(panth.get_tft_grandmaster_league())
     except Exception as e:
         print(e)
     
@@ -34,10 +34,10 @@ def test_tft_apex_grandmaster():
     assert type(data["entries"]) == list
     
     
-@pytest.mark.skipif(too_early, reason="Too early in the season")
+@pytest.mark.skipif(too_early_tft, reason="Too early in the season")
 def test_tft_apex_master():
     try:
-        data = loop.run_until_complete(panth.getTFTMasterLeague())
+        data = loop.run_until_complete(panth.get_tft_master_league())
     except Exception as e:
         print(e)
     
@@ -48,7 +48,7 @@ def test_tft_apex_master():
     
 def test_tft_league_entries_by_summonerId():
     try:
-        data = loop.run_until_complete(panth.getTFTLeaguePosition(summonerId))
+        data = loop.run_until_complete(panth.get_tft_league_position(summonerId))
     except Exception as e:
         print(e)
     
@@ -57,7 +57,7 @@ def test_tft_league_entries_by_summonerId():
 
 def test_tft_league_entries():
     try:
-        data = loop.run_until_complete(panth.getTFTLeaguePages())
+        data = loop.run_until_complete(panth.get_tft_league_pages())
     except Exception as e:
         print(e)
     
@@ -75,7 +75,7 @@ def test_tft_league_entries():
 
 def test_tft_league_entries_params():
     try:
-        data = loop.run_until_complete(panth.getTFTLeaguePages(tier="SILVER", division="III"))
+        data = loop.run_until_complete(panth.get_tft_league_pages(tier="SILVER", division="III"))
     except Exception as e:
         print(e)
     
@@ -93,12 +93,12 @@ def test_tft_league_entries_params():
 
 def test_tft_league_entries_pages():
     try:
-        data = loop.run_until_complete(panth.getTFTLeaguePages(tier="SILVER", division="III", page=1))
+        data = loop.run_until_complete(panth.get_tft_league_pages(tier="SILVER", division="III", page=1))
     except Exception as e:
         print(e)
         
     try:
-        data_2 = loop.run_until_complete(panth.getTFTLeaguePages(tier="SILVER", division="III", page=2))
+        data_2 = loop.run_until_complete(panth.get_tft_league_pages(tier="SILVER", division="III", page=2))
     except Exception as e:
         print(e)
     

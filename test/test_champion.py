@@ -2,7 +2,7 @@ from .config import *
 
 def test_champion():
     try:
-        data = loop.run_until_complete(panth.getChampionRotations())
+        data = loop.run_until_complete(panth.get_champion_rotations())
     except Exception as e:
         print(e)
     

@@ -9,17 +9,16 @@ import os
 # API details
 api_key = os.environ['PANTHEON_KEY']
 server = "euw1"
-panth = pantheon.Pantheon(server, api_key, errorHandling=True)
+panth = pantheon.Pantheon(server, api_key, auto_retry=True)
 
-panth_americas = pantheon.Pantheon("americas", api_key, errorHandling=True)
-panth_eu = pantheon.Pantheon("eu", api_key, errorHandling=True)
+panth_eu = pantheon.Pantheon("eu", api_key, auto_retry=True)
 
 # Summoner details
 name = "Canisback"
 tag = "EUW1"
 accountId = "mCT1-43iYmFMG0-X2efejgX6JBnMneMnGXALxYTE_1nvaQ"
 summonerId = "r3jOCGc0_W5N9lg-ZANlC2CSEnn-7wMGm_hZAdo-bxprB_4"
-puuid = "S6OWGeKQqY-SCU8931OPdK2zmenypS5Hs_YHv6SrmBDAVMMJpDQeTq8q06tzTFHvNaXWoIf6Fm5iTg"
+puuId = "S6OWGeKQqY-SCU8931OPdK2zmenypS5Hs_YHv6SrmBDAVMMJpDQeTq8q06tzTFHvNaXWoIf6Fm5iTg"
 
 
 # League details
@@ -30,7 +29,7 @@ too_early = False
 too_early_tft = False
 
 # Match details
-matchId = 4259542242
+matchId = "EUW1_5742254354"
 
 # Tournament details
 stub = True
@@ -41,7 +40,7 @@ tournament_name = "Test"
 # TFT details
 tft_leagueId = "30032c60-f82a-11e9-8d92-a2a060ae885a"
 
-tft_matchId = "NA1_3525864593"
+tft_matchId = "EUW1_5742439028"
 
 loop = asyncio.get_event_loop() 
 
@@ -52,9 +51,9 @@ clash_tournamentId = 2002
 
 
 #Valorant data
-val_puuid = "zxzDtQcrVZGz4-p4e_woWLRZb-DOy2dejjYTH-nLrFgGAjHVXR_qHaOLO80l0YqpKQEo-wtbmbn10w"
-val_matchId = "1bbaca47-2918-49c5-9b25-caa9d8ea63fa"
+val_puuid = "gN5dQedVxymZGD8atprfa_tIeZyl-rDFT1o23eKWgJ9ndawj8CBK_1P-1Mbi6g6_-XGG6EtWkMS7pQ"
+val_matchId = "81df03af-69bd-4ed1-8006-b6286bdb3f0a"
 
 # LoR data
-lor_puuid = "4Kk3m_zl1MWJf9VKAsvBmIUKO8LZCqNCLaNgJ0DybNyUU3eydu-lzN88L5RLpn8SxQULn2-SsBKa4Q"
-lor_matchId = "829c361c-edca-4305-bc2d-c205051b0a5d"
+lor_puuid = "2a-I8ATOrJJ7PnqMSR6NQ9BlB6RL7tYhu7ocDuQIZY4WIzr-scvPyTCiSZaW5q9ff2BnrcTbDsa9lw"
+lor_matchId = "4f5b6a7d-23ed-4256-9fb6-b2810c3c3b92"

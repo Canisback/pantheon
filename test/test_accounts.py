@@ -2,7 +2,7 @@ from .config import *
 
 def test_account_puuid():
     try:
-        data = loop.run_until_complete(panth_americas.getAccountByPuuId(puuid))
+        data = loop.run_until_complete(panth.get_account_by_puuId(puuId))
     except Exception as e:
         print(e)
     
@@ -12,7 +12,7 @@ def test_account_puuid():
     
 def test_account_name():
     try:
-        data = loop.run_until_complete(panth_americas.getAccountByRiotId(name, tag))
+        data = loop.run_until_complete(panth.get_account_by_riotId(name, tag))
     except Exception as e:
         print(e)
     
@@ -22,7 +22,7 @@ def test_account_name():
     
 def test_account_shards():
     try:
-        data = loop.run_until_complete(panth_americas.getActiveShards(puuid, "val"))
+        data = loop.run_until_complete(panth.get_active_shards(puuId, "val"))
     except Exception as e:
         print(e)
     

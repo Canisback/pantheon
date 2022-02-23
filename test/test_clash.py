@@ -2,7 +2,7 @@ from .config import *
 
 def test_getClashTournaments():
     try:
-        data = loop.run_until_complete(panth.getClashTournaments())
+        data = loop.run_until_complete(panth.get_clash_tournaments())
     except Exception as e:
         print(e)
     
@@ -14,7 +14,7 @@ def test_getClashTournaments():
 
 def test_getClashTournamentById():
     try:
-        data = loop.run_until_complete(panth.getClashTournamentById(clash_tournamentId))
+        data = loop.run_until_complete(panth.get_clash_tournament_by_id(clash_tournamentId))
     except Exception as e:
         print(e)
     
@@ -24,7 +24,7 @@ def test_getClashTournamentById():
 
 def test_getClashTournamentByTeamId():
     try:
-        data = loop.run_until_complete(panth.getClashTournamentByTeamId(clash_teamId))
+        data = loop.run_until_complete(panth.get_clash_tournament_by_teamId(clash_teamId))
     except Exception as e:
         print(e)
     
@@ -34,7 +34,7 @@ def test_getClashTournamentByTeamId():
 
 def test_getClashTeamById():
     try:
-        data = loop.run_until_complete(panth.getClashTeamById(clash_teamId))
+        data = loop.run_until_complete(panth.get_clash_team_by_id(clash_teamId))
     except Exception as e:
         print(e)
     
@@ -45,7 +45,7 @@ def test_getClashTeamById():
         
 def test_getClashPlayersBySummonerId():
     try:
-        data = loop.run_until_complete(panth.getClashPlayersBySummonerId(clash_summonerId))
+        data = loop.run_until_complete(panth.get_clash_players_by_summonerId(clash_summonerId))
     except Exception as e:
         print(e)
     

@@ -2,7 +2,7 @@ from .config import *
 
 def test_leaderboard():
     try:
-        data = loop.run_until_complete(panth_americas.getLeaderboard())
+        data = loop.run_until_complete(panth.get_lor_leaderboard())
     except Exception as e:
         print(e)
     
@@ -12,7 +12,7 @@ def test_leaderboard():
 
 def test_match():
     try:
-        data = loop.run_until_complete(panth_americas.getLoRMatch(lor_matchId))
+        data = loop.run_until_complete(panth.get_lor_match(lor_matchId))
     except Exception as e:
         print(e)
     
@@ -21,7 +21,7 @@ def test_match():
     
 def test_matchlist():
     try:
-        data = loop.run_until_complete(panth_americas.getLoRMatchlist(lor_puuid))
+        data = loop.run_until_complete(panth.get_lor_matchlist(lor_puuid))
     except Exception as e:
         print(e)
     
