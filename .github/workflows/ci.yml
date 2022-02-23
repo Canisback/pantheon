@@ -8,7 +8,7 @@ on:
     
 jobs:
   testing:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.7, 3.10]
