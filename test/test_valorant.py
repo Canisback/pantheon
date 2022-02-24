@@ -3,6 +3,8 @@ from .config import *
 def test_content():
     try:
         data = loop.run_until_complete(panth_eu.get_valorant_content())
+    except exc.ServerError as e:
+        pytest.skip("Riot API shitting itself again")
     except Exception as e:
         print(e)
     
