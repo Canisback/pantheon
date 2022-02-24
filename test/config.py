@@ -1,7 +1,7 @@
 import asyncio
 import pytest
 
-from pantheon import pantheon
+from pantheon import Pantheon
 from pantheon.utils import exceptions as exc
 
 import os
@@ -9,9 +9,9 @@ import os
 # API details
 api_key = os.environ['PANTHEON_KEY']
 server = "euw1"
-panth = pantheon.Pantheon(server, api_key, auto_retry=True)
+panth = Pantheon(server, api_key, auto_retry=True)
 
-panth_eu = pantheon.Pantheon("eu", api_key, auto_retry=True)
+panth_eu = Pantheon("eu", api_key, auto_retry=True)
 
 # Summoner details
 name = "Canisback"

@@ -45,5 +45,3 @@ def test_recent_matchlist():
         print(e)
     
     assert type(data["matchIds"]) == list
-    
-    

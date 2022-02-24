@@ -10,13 +10,18 @@ def test_pantheon_locked():
     
 
 def test_platform_1():
-    p = pantheon.Pantheon("euw1", api_key, auto_retry=True)
+    p = Pantheon("euw1", api_key, auto_retry=True)
     
     assert p._platform == "euw1"
     assert p._region == "europe"
     
 def test_platform_2():
-    p = pantheon.Pantheon("europe", api_key, auto_retry=True)
+    p = Pantheon("europe", api_key, auto_retry=True)
     
     assert p._platform == None
     assert p._region == "europe"
+    
+def test_singleton():
+    p = Pantheon("na1", api_key, auto_retry=True)
+    
+    assert p._rl == panth._rl

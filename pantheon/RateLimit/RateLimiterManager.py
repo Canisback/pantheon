@@ -1,7 +1,7 @@
 from .RateLimiter import RateLimiter
 from ..utils.utils import Singleton
 
-class RateLimiterManager:
+class RateLimiterManager(metaclass=Singleton):
     def __init__(self, debug):
         
         PLATFORMS = ["br1","eun1","euw1","jp1","kr","la1", "la2","na1","oc1","tr1","ru"]
