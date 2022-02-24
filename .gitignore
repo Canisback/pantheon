@@ -9,3 +9,6 @@ dist/*
 .pypirc
 *.ipynb_checkpoints*
 htmlcov/*
+node_modules/*
+pantheon.egg-info/*
+package.json
