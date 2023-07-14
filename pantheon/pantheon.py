@@ -753,14 +753,14 @@ class Pantheon():
     @auto_retry
     @exceptions
     @ratelimit_region
-    async def get_tft_matchlist(self, puuId, count=20):
+    async def get_tft_matchlist(self, puuId, params=None):
         """
         :param string puuId: puuId of the player
-        :param int count: number of games requested
+        :param object params: all key:value params to add to the request
         
         Returns the result of https://developer.riotgames.com/apis#tft-match-v1/GET_getMatchIdsByPUUID
         """
-        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/by-puuid/{puuId}/ids?count={count}").format(server= self._region, puuId=puuId, count=count))
+        return await self.fetch((self.BASE_URL_TFT + "match/v1/matches/by-puuid/{puuId}/ids{params}").format(server=self._region, puuId=puuId, params = utils.urlParams(params)))
     
     
     @auto_retry
