@@ -560,7 +560,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerProviderData
         """
-        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/providers").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else ""), method="POST", data={"region":region, "url":callback_url})
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v5/providers").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else ""), method="POST", data={"region":region, "url":callback_url})
     
     
     @auto_retry
@@ -573,7 +573,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerTournament
         """
-        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/tournaments").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else ""), method="POST", data={"providerId":providerId, "name":name})
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v5/tournaments").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else ""), method="POST", data={"providerId":providerId, "name":name})
     
     
     @auto_retry
@@ -593,7 +593,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode
         """
-        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/codes?count={nb_codes}&tournamentId={tournamentId}").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else "", tournamentId=tournamentId, nb_codes=nb_codes), method="POST", data=data)
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v5/codes?count={nb_codes}&tournamentId={tournamentId}").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else "", tournamentId=tournamentId, nb_codes=nb_codes), method="POST", data=data)
     
     
     @auto_retry
@@ -606,7 +606,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode
         """
-        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v4/lobby-events/by-code/{code}").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else "", code=tournamentCode))
+        return await self.fetch((self.BASE_URL_LOL+"tournament{stub}/v5/lobby-events/by-code/{code}").format(server=self.TOURNAMENT_REGION, stub="-stub" if stub else "", code=tournamentCode))
     
     
     # Clash
