@@ -54,21 +54,21 @@ class Pantheon():
         elif server in self.REGIONS:
             self.set_region(server)
         else:
-            raise InvalidServer(server, self.PLATFORMS + self.REGIONS)
+            raise exc.InvalidServer(server, self.PLATFORMS + self.REGIONS)
     
     def set_platform(self, platform):
         if platform in self.PLATFORMS:
             self._platform = platform
             self._region = self.PLATFORMS_TO_REGIONS[platform]
         else:
-            raise InvalidServer(platform, self.PLATFORMS)
+            raise exc.InvalidServer(platform, self.PLATFORMS)
             
     def set_region(self, region):
         if region in self.REGIONS:
             self._platform = None
             self._region = region
         else:
-            raise InvalidServer(region, self.REGIONS)
+            raise exc.InvalidServer(region, self.REGIONS)
     
     
     def locked(self, server):
