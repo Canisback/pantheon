@@ -822,7 +822,7 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
         """
-        return await self.fetch((self.BASE_URL_RIOT + "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}").format(server=self._region, gameName=gamename, tagLine=tagline))
+        return await self.fetch((self.BASE_URL_RIOT + "account/v1/accounts/by-riot-id/{gameName}/{tagLine}").format(server=self._region, gameName=gamename, tagLine=tagline))
     
     @auto_retry
     @exceptions
