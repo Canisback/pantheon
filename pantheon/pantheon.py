@@ -54,21 +54,21 @@ class Pantheon():
         elif server in self.REGIONS:
             self.set_region(server)
         else:
-            raise InvalidServer(server, self.PLATFORMS + self.REGIONS)
+            raise exc.InvalidServer(server, self.PLATFORMS + self.REGIONS)
     
     def set_platform(self, platform):
         if platform in self.PLATFORMS:
             self._platform = platform
             self._region = self.PLATFORMS_TO_REGIONS[platform]
         else:
-            raise InvalidServer(platform, self.PLATFORMS)
+            raise exc.InvalidServer(platform, self.PLATFORMS)
             
     def set_region(self, region):
         if region in self.REGIONS:
             self._platform = None
             self._region = region
         else:
-            raise InvalidServer(region, self.REGIONS)
+            raise exc.InvalidServer(region, self.REGIONS)
     
     
     def locked(self, server):
@@ -816,6 +816,17 @@ class Pantheon():
     @auto_retry
     @exceptions
     @ratelimit_region
+    async def get_account_by_riot_id(self, gamename, tagline):
+        """
+        :param string puuId: puuId of the player
+        
+        Returns the result of https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
+        """
+        return await self.fetch((self.BASE_URL_RIOT + "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}").format(server=self._region, gameName=gamename, tagLine=tagline))
+    
+    @auto_retry
+    @exceptions
+    @ratelimit_region
     async def get_account_by_puuId(self, puuId):
         """
         :param string puuId: puuId of the player
@@ -939,6 +950,6 @@ class Pantheon():
         
         Returns the result of https://developer.riotgames.com/apis#val-ranked-v1/GET_getLeaderboard
         """
-        return await self.fetch((self.BASE_URL_VAL + "ranked/v1/leaderboards/by-act/{actId}?size={}size&startIndex={startIndex}").format(server=server, size=size, startIndex=startIndex))
+        return await self.fetch((self.BASE_URL_VAL + "ranked/v1/leaderboards/by-act/{actId}?size={}size&startIndex={startIndex}").format(server=self._region, size=size, startIndex=startIndex))
 
     
